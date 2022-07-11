@@ -6,6 +6,7 @@ project(NinjaThief_32blit)
 # Add your sources here (adding headers is optional, but helps some CMake generators)
 set(PROJECT_SOURCES
 	"ninja_thief.cpp"
+	"level.cpp"
 )
 
 # ... and any other files you want in the release here
