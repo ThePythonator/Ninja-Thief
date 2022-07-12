@@ -4,7 +4,7 @@ Level::Level() {
 
 }
 
-Level::Level(const uint8_t level_data[]) : _level_data(level_data) {
+Level::Level(const Constants::LevelData level_data) : _level_data(level_data) {
 	// TODO: search for player pos and create PlayerNinja object
 
 	// For now, just spawn player in centre of screen
@@ -16,10 +16,24 @@ void Level::update(float dt) {
 }
 
 void Level::render(Surface* screen) {
-	// Iterate through array of tile ids, and render the tile from the spritesheet which corresponds to each tile id
+	// Render border
+	render_border(screen);
+
+	// Render platforms
+	render_tiles(screen, _level_data.platforms);
+
+	// Render extras (coins, gems and ladders)
+	render_tiles(screen, _level_data.extras);
+	
+	// Render player
+	player.render(screen);
+}
+
+void Level::render_tiles(Surface* screen, const uint8_t* tile_ids) {
+	// Iterate through array of tile ids and render using the correct index in the spritesheet
 	for (uint8_t y = 0; y < Constants::GAME_HEIGHT_TILES; y++) {
 		for (uint8_t x = 0; x < Constants::GAME_WIDTH_TILES; x++) {
-			uint8_t tile_id = _level_data[y * Constants::GAME_WIDTH_TILES + x];
+			uint8_t tile_id = tile_ids[y * Constants::GAME_WIDTH_TILES + x];
 
 			if (tile_id != Constants::NO_TILE) {
 				// We need to offset the tiles since the 32blit version has borders on the screen
@@ -27,7 +41,9 @@ void Level::render(Surface* screen) {
 			}
 		}
 	}
+}
 
+void Level::render_border(Surface* screen) {
 	// Render border (only needed for 32blit, with the wider screen)
 	for (uint8_t y = 0; y < Constants::SCREEN_HEIGHT; y += Constants::SPRITE_SIZE) {
 		// Left border:
@@ -46,7 +62,4 @@ void Level::render(Surface* screen) {
 		}
 		screen->sprite(Constants::Sprites::BORDER_RIGHT, Point(x, y));
 	}
-
-	// Render player
-	player.render(screen);
 }

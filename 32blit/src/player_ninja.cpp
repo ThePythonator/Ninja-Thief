@@ -8,7 +8,7 @@ PlayerNinja::PlayerNinja(float x, float y) : Ninja(Colour::Blue, x, y) {
 
 }
 
-void PlayerNinja::update(float dt, const uint8_t* level_data) {
+void PlayerNinja::update(float dt, const Constants::LevelData level_data) {
 	// Handle any buttons the user has pressed
 	// Note: "else if" isn't used, because otherwise one direction will be favoured when both buttons are pressed
 	// Instead, we add/subtract the velocity, so if both are pressed, nothing happens

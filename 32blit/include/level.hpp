@@ -12,13 +12,16 @@ using namespace blit;
 class Level {
 public:
 	Level();
-	Level(const uint8_t level_data[]);
+	Level(const Constants::LevelData level_data);
 
 	void update(float dt);
 	void render(Surface* screen);
 
 private:
-	const uint8_t* _level_data = nullptr;
+	void render_tiles(Surface* screen, const uint8_t* tile_ids);
+	void render_border(Surface* screen);
+
+	Constants::LevelData _level_data;
 
 	PlayerNinja player;
 	//std::vector<EnemyNinja> enemies;

@@ -8,7 +8,7 @@ Ninja::Ninja(Colour colour, float x, float y) : _colour(colour), position_x(x), 
 
 }
 
-void Ninja::update(float dt, const uint8_t* level_data) {
+void Ninja::update(float dt, const Constants::LevelData level_data) {
 	// Set can_jump to false - it is set to true later in this method, only if the player is on a platform
 	can_jump = false;
 
@@ -39,7 +39,7 @@ void Ninja::update(float dt, const uint8_t* level_data) {
 	for (uint8_t y_offset = 0; y_offset < (y == Constants::GAME_HEIGHT_TILES - 1 ? 1 : 2); y_offset++) {
 		for (uint8_t x_offset = 0; x_offset < (x == Constants::GAME_WIDTH_TILES - 1 ? 1 : 2); x_offset++) {
 			// Get tile's sprite index from level data
-			uint8_t tile_id = level_data[(y + y_offset) * Constants::GAME_WIDTH_TILES + (x + x_offset)];
+			uint8_t tile_id = level_data.platforms[(y + y_offset) * Constants::GAME_WIDTH_TILES + (x + x_offset)];
 
 			// Check the tile actually exists
 			if (tile_id != Constants::NO_TILE) {
