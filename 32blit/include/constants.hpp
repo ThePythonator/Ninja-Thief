@@ -2,6 +2,10 @@
 
 #include <cstdint>
 
+#include "32blit.hpp"
+
+using namespace blit;
+
 namespace Constants {
 	// Screen size in pixels
 	const uint8_t SCREEN_WIDTH = 160;
@@ -14,19 +18,37 @@ namespace Constants {
 	// Each sprite on the spritesheet is 8x8 pixels
 	const uint8_t SPRITE_SIZE = 8;
 
+	// The ninja sprites are smaller in width
+	const uint8_t NINJA_WIDTH = 4;
+	// Calculate the gap between the edge of the sprite and the edge of the ninja on each side
+	const uint8_t NINJA_BORDER = (SPRITE_SIZE - NINJA_WIDTH) / 2;
+
 	// Game area size in tiles
 	const uint8_t GAME_WIDTH_TILES = GAME_WIDTH / SPRITE_SIZE;
 	const uint8_t GAME_HEIGHT_TILES = GAME_HEIGHT / SPRITE_SIZE;
 
+	// Offset of game area from top left corner
+	const Point GAME_OFFSET = Point(Constants::SCREEN_WIDTH - Constants::GAME_WIDTH, Constants::SCREEN_HEIGHT - Constants::GAME_HEIGHT) / 2;
+
 	// Sprite indices to use for rendering
 	namespace Sprites {
-		const uint8_t PLAYER_IDLE = 24;
-		const uint8_t PLAYER_SEMI_IDLE = 25;
-		const uint8_t PLAYER_WALKING_1 = 26;
-		const uint8_t PLAYER_WALKING_2 = 27;
+		const uint8_t PLAYER_IDLE = 32;
+		const uint8_t PLAYER_SEMI_IDLE = 33;
+		const uint8_t PLAYER_WALKING_1 = 34;
+		const uint8_t PLAYER_WALKING_2 = 35;
 
 		// Number of images for each player
 		const uint8_t PLAYER_IMAGES = 4;
+
+		const uint8_t BORDER_LEFT = 10;
+		const uint8_t BORDER_FULL = 9;
+		const uint8_t BORDER_RIGHT = 8;
+	}
+
+	// Player data such as max speed and acceleration
+	namespace Player {
+		// Speeds are measured in pixels per second
+		const float MAX_SPEED = 15.0f;
 	}
 
 	// Level data (each level is a 2D array of the tile indices)

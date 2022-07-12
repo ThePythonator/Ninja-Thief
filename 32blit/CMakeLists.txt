@@ -7,6 +7,8 @@ project(NinjaThief_32blit)
 set(PROJECT_SOURCES
 	"ninja_thief.cpp"
 	"level.cpp"
+	"ninja.cpp"
+	"player_ninja.cpp"
 )
 
 # ... and any other files you want in the release here

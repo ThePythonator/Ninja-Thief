@@ -6,6 +6,9 @@ Surface* background = nullptr;
 
 Level level;
 
+// Used to calculate time since last frame
+float last_time = 0.0f;
+
 // Setup the game
 void init() {
     // Set screen to 160x120 mode
@@ -23,7 +26,13 @@ void init() {
 
 // Update the game
 void update(uint32_t time) {
+    // Calculate change in time (in seconds) since last frame
+    float dt = (time - last_time) / 1000.0f;
 
+    // Cap dt (for when the game is paused)
+    if (dt > 0.05f) dt = 0.05f;
+
+    level.update(dt);
 }
 
 // Render the game (draw it to the display)
@@ -36,11 +45,8 @@ void render(uint32_t time) {
     // Draw the background
     screen.blit(background, Rect(0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT), Point(0, 0));
 
-    // Render the level
+    // Render the level, which includes drawing the player and enemies
     level.render(&screen);
-
-    // Draw the player
-    screen.sprite(Constants::Sprites::PLAYER_IDLE, Point(10, 20));
 
 
     // Draw some text at the top of the screen
