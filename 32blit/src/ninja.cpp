@@ -45,11 +45,64 @@ void Ninja::update(float dt, const uint8_t* level_data) {
 
 				// Now check if ninja is colliding with the tile
 				if (check_colliding(tile_x, tile_y, Constants::SPRITE_SIZE)) {
-					// TODO: sat resolution
+					// Resolve collision by finding the direction with the least intersection
+					// The value of direction is 0 if left side of tile, 1 if top, 2 if right, 3 if bottom
+					uint8_t direction = 0;
+					float least_intersection = Constants::SPRITE_SIZE;
 
-					printf("tile: %u, %u (%u)\n", tile_x / 8, tile_y / 8, tile_id);
-					printf("pos: %f, %f\n", position_x, position_y);
-					//printf("collision %u\n", rand());
+					// Left side of tile
+					float intersection = position_x + Constants::SPRITE_SIZE - Constants::NINJA_BORDER - tile_x;
+					if (intersection < least_intersection) {
+						direction = 0;
+						least_intersection = intersection;
+					}
+					
+					// Top side of tile
+					intersection = position_y + Constants::SPRITE_SIZE - tile_y;
+					if (intersection < least_intersection) {
+						direction = 1;
+						least_intersection = intersection;
+					}
+
+					// Right side of tile
+					intersection = tile_x + Constants::SPRITE_SIZE - position_x - Constants::NINJA_BORDER;
+					if (intersection < least_intersection) {
+						direction = 2;
+						least_intersection = intersection;
+					}
+
+					// Bottom side of tile
+					intersection = tile_y + Constants::SPRITE_SIZE - position_y;
+					if (intersection < least_intersection) {
+						direction = 3;
+						least_intersection = intersection;
+					}
+
+					// Now resolve collision by moving the player in the direction of least intersection, by exactly the amount equal to the least intersection
+					switch (direction) {
+					case 0:
+						position_x -= least_intersection;
+						velocity_x = 0.0f;
+						break;
+
+					case 1:
+						position_y -= least_intersection;
+						velocity_y = 0.0f;
+						break;
+
+					case 2:
+						position_x += least_intersection;
+						velocity_x = 0.0f;
+						break;
+
+					case 3:
+						position_y += least_intersection;
+						velocity_y = 0.0f;
+						break;
+
+					default:
+						break;
+					}
 				}
 			}
 		}
