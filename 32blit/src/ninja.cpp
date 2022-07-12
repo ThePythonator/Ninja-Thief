@@ -9,6 +9,9 @@ Ninja::Ninja(Colour colour, float x, float y) : _colour(colour), position_x(x), 
 }
 
 void Ninja::update(float dt) {
+	// Apply gravity
+	velocity_y += Constants::Environment::GRAVITY_ACCELERATION * dt;
+
 	// Update position from velocity
 	position_x += velocity_x * dt;
 	position_y += velocity_y * dt;

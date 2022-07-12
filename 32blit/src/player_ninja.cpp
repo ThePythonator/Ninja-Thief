@@ -23,6 +23,18 @@ void PlayerNinja::update(float dt) {
 		velocity_x += Constants::Player::MAX_SPEED;
 	}
 
+	// Handle jumping
+	if (buttons & Button::A) {
+		// TODO: check if on platform
+		velocity_y = -Constants::Player::JUMP_SPEED;
+	}
+
 	// Call parent update method
 	Ninja::update(dt);
+
+
+	// Temporary addition to stop player falling off bottom of screen
+	if (position_y > Constants::GAME_HEIGHT - Constants::SPRITE_SIZE) {
+		position_y = Constants::GAME_HEIGHT - Constants::SPRITE_SIZE;
+	}
 }

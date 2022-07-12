@@ -49,6 +49,13 @@ namespace Constants {
 	namespace Player {
 		// Speeds are measured in pixels per second
 		const float MAX_SPEED = 15.0f;
+
+		const float JUMP_SPEED = 15.0f;
+	}
+
+	// Environment data such as gravity strength
+	namespace Environment {
+		const float GRAVITY_ACCELERATION = 15.0f;
 	}
 
 	// Level data (each level is a 2D array of the tile indices)
