@@ -9,6 +9,9 @@ Ninja::Ninja(Colour colour, float x, float y) : _colour(colour), position_x(x), 
 }
 
 void Ninja::update(float dt, const uint8_t* level_data) {
+	// Set can_jump to false - it is set to true later in this method, only if the player is on a platform
+	can_jump = false;
+
 	// Apply gravity
 	velocity_y += Constants::Environment::GRAVITY_ACCELERATION * dt;
 
@@ -81,21 +84,28 @@ void Ninja::update(float dt, const uint8_t* level_data) {
 					// Now resolve collision by moving the player in the direction of least intersection, by exactly the amount equal to the least intersection
 					switch (direction) {
 					case 0:
+						// Hit the left side of a platform
 						position_x -= least_intersection;
 						velocity_x = 0.0f;
 						break;
 
 					case 1:
+						// Landed on top of a platform
 						position_y -= least_intersection;
 						velocity_y = 0.0f;
+
+						// Allow the player to jump again
+						can_jump = true;
 						break;
 
 					case 2:
+						// Hit the right side of a platform
 						position_x += least_intersection;
 						velocity_x = 0.0f;
 						break;
 
 					case 3:
+						// Hit the underside of a platform
 						position_y += least_intersection;
 						velocity_y = 0.0f;
 						break;

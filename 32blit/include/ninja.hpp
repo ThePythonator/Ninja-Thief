@@ -29,4 +29,6 @@ protected:
 
 	float position_x = 0.0f;
 	float position_y = 0.0f;
+
+	bool can_jump = false;
 };

@@ -25,8 +25,10 @@ void PlayerNinja::update(float dt, const uint8_t* level_data) {
 
 	// Handle jumping
 	if (buttons & Button::A) {
-		// TODO: check if on platform
-		velocity_y = -Constants::Player::JUMP_SPEED;
+		if (can_jump) {
+			velocity_y = -Constants::Player::JUMP_SPEED;
+			can_jump = false;
+		}
 	}
 
 	// Call parent update method

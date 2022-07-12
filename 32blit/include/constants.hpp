@@ -50,7 +50,7 @@ namespace Constants {
 		// Speeds are measured in pixels per second
 		const float MAX_SPEED = 15.0f;
 
-		const float JUMP_SPEED = 15.0f;
+		const float JUMP_SPEED = 25.0f;
 	}
 
 	// Environment data such as gravity strength
