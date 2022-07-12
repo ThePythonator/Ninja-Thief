@@ -7,7 +7,7 @@ public:
 	PlayerNinja();
 	PlayerNinja(float x, float y);
 
-	void update(float dt);
+	void update(float dt, const uint8_t* level_data);
 
 private:
 	

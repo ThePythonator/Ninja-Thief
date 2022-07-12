@@ -12,7 +12,7 @@ Level::Level(const uint8_t level_data[]) : _level_data(level_data) {
 }
 
 void Level::update(float dt) {
-	player.update(dt);
+	player.update(dt, _level_data);
 }
 
 void Level::render(Surface* screen) {

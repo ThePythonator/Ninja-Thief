@@ -16,8 +16,10 @@ public:
 	Ninja();
 	Ninja(Colour colour, float x, float y);
 
-	void update(float dt);
+	void update(float dt, const uint8_t* level_data);
 	void render(Surface* screen);
+
+	bool check_colliding(float object_x, float object_y, uint8_t object_size);
 
 protected:
 	Colour _colour;

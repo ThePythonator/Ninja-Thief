@@ -8,7 +8,7 @@ PlayerNinja::PlayerNinja(float x, float y) : Ninja(Colour::Blue, x, y) {
 
 }
 
-void PlayerNinja::update(float dt) {
+void PlayerNinja::update(float dt, const uint8_t* level_data) {
 	// Handle any buttons the user has pressed
 	// Note: "else if" isn't used, because otherwise one direction will be favoured when both buttons are pressed
 	// Instead, we add/subtract the velocity, so if both are pressed, nothing happens
@@ -30,11 +30,12 @@ void PlayerNinja::update(float dt) {
 	}
 
 	// Call parent update method
-	Ninja::update(dt);
+	Ninja::update(dt, level_data);
 
 
 	// Temporary addition to stop player falling off bottom of screen
 	if (position_y > Constants::GAME_HEIGHT - Constants::SPRITE_SIZE) {
 		position_y = Constants::GAME_HEIGHT - Constants::SPRITE_SIZE;
+		velocity_y = 0.0f;
 	}
 }
