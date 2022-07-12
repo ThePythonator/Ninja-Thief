@@ -4,11 +4,11 @@ Level::Level() {
 
 }
 
-Level::Level(const Constants::LevelData level_data) : _level_data(level_data) {
+Level::Level(const Constants::LevelData& level_data) : _level_data(level_data) {
 	// TODO: search for player pos and create PlayerNinja object
 
 	// For now, just spawn player in centre of screen
-	player = PlayerNinja(Constants::GAME_WIDTH / 2, Constants::GAME_HEIGHT / 2);
+	player = PlayerNinja(Vec2(Constants::GAME_WIDTH / 2, Constants::GAME_HEIGHT / 2));
 }
 
 void Level::update(float dt) {
