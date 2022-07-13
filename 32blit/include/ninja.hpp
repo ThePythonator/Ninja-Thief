@@ -44,4 +44,11 @@ protected:
 	};
 
 	ClimbingState climbing_state = ClimbingState::NONE;
+
+	enum class FacingDirection {
+		LEFT,
+		RIGHT
+	};
+
+	FacingDirection facing_direction = FacingDirection::RIGHT;
 };

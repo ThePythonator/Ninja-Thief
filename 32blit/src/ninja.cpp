@@ -28,6 +28,15 @@ void Ninja::update(float dt, const Constants::LevelData& level_data) {
 
 	// Detect and resolve any collisions with platforms, ladders, coins etc
 	handle_collisions(level_data);
+
+
+	// Update direction the ninja is facing
+	if (velocity.x < 0.0f) {
+		facing_direction = FacingDirection::LEFT;
+	}
+	else if (velocity.x > 0.0f) {
+		facing_direction = FacingDirection::RIGHT;
+	}
 }
 
 void Ninja::render(Surface* screen) {
@@ -35,7 +44,7 @@ void Ninja::render(Surface* screen) {
 	uint8_t index_offset = static_cast<uint8_t>(colour) * Constants::Sprites::PLAYER_IMAGES;
 
 	// If ninja is travelling left, flip the image horizontally
-	//SpriteTransform transform = velocity_x >= 0.0f ? SpriteTransform::NONE : SpriteTransform::HORIZONTAL;
+	SpriteTransform transform = facing_direction == FacingDirection::RIGHT ? SpriteTransform::NONE : SpriteTransform::HORIZONTAL;
 
 	// TODO: Calculate sprite index based on animation frame
 
@@ -63,7 +72,7 @@ void Ninja::render(Surface* screen) {
 	uint8_t index = index_offset + Constants::Sprites::PLAYER_IDLE;
 
 
-	screen->sprite(index, Point(position.x, position.y) + Constants::GAME_OFFSET);
+	screen->sprite(index, Point(position.x, position.y) + Constants::GAME_OFFSET, transform);
 }
 
 bool Ninja::check_colliding(Vec2 object_position, uint8_t object_size) {
