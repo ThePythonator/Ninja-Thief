@@ -46,30 +46,20 @@ void Ninja::render(Surface* screen) {
 	// If ninja is travelling left, flip the image horizontally
 	SpriteTransform transform = facing_direction == HorizontalDirection::RIGHT ? SpriteTransform::NONE : SpriteTransform::HORIZONTAL;
 
-	// TODO: Calculate sprite index based on animation frame
-
-	/*// Set sprite index
+	// Set sprite index
 	uint8_t index = index_offset;
 	
 	if (climbing_state == ClimbingState::NONE) {
 		// Player isn't climbing
-
-		if (velocity_x == 0.0f && velocity_y == 0.0f) {
-			// Player isn't moving
-			index += Constants::Sprites::PLAYER_IDLE;
-		}
-		else {
-			// Player is moving
-			//index += Constants::Sprites::PLAYER_WALKING;
-		}
+		// TODO: handle walking/jumping animations
+		// For now:
+		index += Constants::Sprites::PLAYER_IDLE;
 	}
 	else {
 		// TODO: handle climbing animation
 		// For now:
-		//index += 
-	}*/
-
-	uint8_t index = index_offset + Constants::Sprites::PLAYER_IDLE;
+		index += Constants::Sprites::PLAYER_CLIMBING_IDLE;
+	}
 
 
 	screen->sprite(index, Point(position.x, position.y) + Constants::GAME_OFFSET, transform);
