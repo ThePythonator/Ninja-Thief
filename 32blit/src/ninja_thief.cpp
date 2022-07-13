@@ -6,6 +6,8 @@ Surface* background = nullptr;
 
 Level level;
 
+uint8_t current_level = 0;
+
 // Used to calculate time since last frame
 float last_time = 0.0f;
 
@@ -36,7 +38,14 @@ void update(uint32_t time) {
 
     if (level.level_failed()) {
         // Restart the same level
-        level = Level(Constants::LEVELS[0]);
+        level = Level(Constants::LEVELS[current_level]);
+    }
+    else if (level.level_complete()) {
+        // Start the next level
+        current_level++;
+        current_level %= Constants::LEVEL_COUNT;
+
+        level = Level(Constants::LEVELS[current_level]);
     }
 }
 

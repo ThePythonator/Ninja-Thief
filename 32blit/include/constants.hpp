@@ -71,6 +71,8 @@ namespace Constants {
 		const float JUMP_SPEED = 25.0f;
 
 		const float CLIMBING_SPEED = 8.0f;
+
+		const uint8_t CELEBRATION_JUMP_COUNT = 3;
 	}
 
 	// Enemy data such as max speed

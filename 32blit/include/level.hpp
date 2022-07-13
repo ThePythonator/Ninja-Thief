@@ -26,6 +26,8 @@ private:
 	void render_tiles(Surface* screen, const uint8_t* tile_ids);
 	void render_border(Surface* screen);
 
+	uint8_t coins_left();
+
 	Constants::LevelData _level_data = {};
 
 	PlayerNinja player;

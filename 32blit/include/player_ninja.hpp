@@ -13,8 +13,15 @@ public:
 
 	uint8_t get_score();
 
+	bool finished_celebrating();
+
 	void set_dead();
+	void set_won();
 
 private:
 	uint8_t score = 0;
+
+	bool won = false;
+
+	uint8_t celebration_jumps_remaining = Constants::Player::CELEBRATION_JUMP_COUNT;
 };

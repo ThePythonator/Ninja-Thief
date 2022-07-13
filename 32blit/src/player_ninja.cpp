@@ -12,7 +12,15 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 	// If nothing is pressed, the player shouldn't move
 	velocity.x = 0.0f;
 
-	if (!dead) {
+	if (won) {
+		// Jump in celebration!
+
+		if (can_jump && celebration_jumps_remaining > 0) {
+			jump();
+			celebration_jumps_remaining--;
+		}
+	}
+	else if (!dead) {
 		// Handle any buttons the user has pressed
 		// Note: "else if" isn't used, because otherwise one direction will be favoured when both buttons are pressed
 		// Instead, we add/subtract the velocity, so if both are pressed, nothing happens
@@ -84,7 +92,15 @@ uint8_t PlayerNinja::get_score() {
 	return score;
 }
 
+bool PlayerNinja::finished_celebrating() {
+	return can_jump && celebration_jumps_remaining == 0;
+}
+
 void PlayerNinja::set_dead() {
 	dead = true;
 	jump();
+}
+
+void PlayerNinja::set_won() {
+	won = true;
 }

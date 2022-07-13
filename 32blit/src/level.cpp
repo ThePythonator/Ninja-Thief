@@ -33,8 +33,17 @@ Level::Level(const Constants::LevelData& level_data) : _level_data(level_data) {
 void Level::update(float dt) {
 	switch (level_state) {
 	case LevelState::PLAYING:
+
 		// Update player
 		player.update(dt, _level_data);
+
+		if (coins_left() == 0) {
+			// No more coins left, so the player has won!
+			level_state = LevelState::PLAYER_WON;
+
+			player.set_won();
+		}
+
 
 		// Update enemies
 		for (EnemyNinja& enemy : enemies) {
@@ -56,6 +65,8 @@ void Level::update(float dt) {
 		break;
 
 	case LevelState::PLAYER_DEAD:
+
+		// Update player
 		player.update(dt, _level_data);
 
 		if (player.get_position().y > Constants::GAME_HEIGHT) {
@@ -66,6 +77,15 @@ void Level::update(float dt) {
 		break;
 
 	case LevelState::PLAYER_WON:
+
+		// Update player
+		player.update(dt, _level_data);
+
+		if (player.finished_celebrating()) {
+			// Player has finished doing victory jumps
+			level_state = LevelState::COMPLETE;
+		}
+
 		break;
 
 	default:
@@ -138,4 +158,16 @@ void Level::render_border(Surface* screen) {
 		}
 		screen->sprite(Constants::Sprites::BORDER_RIGHT, Point(x, y));
 	}
+}
+
+uint8_t Level::coins_left() {
+	uint8_t total = 0;
+
+	for (uint8_t i = 0; i < Constants::GAME_WIDTH_TILES * Constants::GAME_HEIGHT_TILES; i++) {
+		if (_level_data.extras[i] == Constants::Sprites::COIN) {
+			total++;
+		}
+	}
+
+	return total;
 }
