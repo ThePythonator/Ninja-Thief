@@ -16,7 +16,7 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		// Jump in celebration!
 
 		if (can_jump && celebration_jumps_remaining > 0) {
-			jump();
+			jump(Constants::Player::CELEBRATION_JUMP_SPEED);
 			celebration_jumps_remaining--;
 		}
 	}
@@ -50,7 +50,8 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		// Handle jumping
 		if (buttons & Button::A) {
 			if (can_jump) {
-				jump();
+				// Player is on platform so is allowed to jump
+				jump(climbing_state == ClimbingState::NONE ? Constants::Player::JUMP_SPEED : Constants::Player::CLIMBING_JUMP_SPEED);
 			}
 		}
 	}
@@ -98,7 +99,7 @@ bool PlayerNinja::finished_celebrating() {
 
 void PlayerNinja::set_dead() {
 	dead = true;
-	jump();
+	jump(Constants::Player::DEATH_JUMP_SPEED);
 }
 
 void PlayerNinja::set_won() {

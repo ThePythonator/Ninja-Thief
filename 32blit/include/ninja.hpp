@@ -33,7 +33,7 @@ protected:
 	// Only implemented by PlayerNinja
 	virtual void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);
 
-	void jump();
+	void jump(float jump_speed);
 
 	Colour colour;
 

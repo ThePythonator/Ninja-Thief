@@ -270,9 +270,8 @@ void Ninja::handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t 
 	// Only implemented by PlayerNinja
 }
 
-void Ninja::jump() {
-	// Player is on platform so is allowed to jump
-	velocity.y = -Constants::Player::JUMP_SPEED;
+void Ninja::jump(float jump_speed) {
+	velocity.y = -jump_speed;
 	can_jump = false;
 
 	// Reset climbing state when player jumps

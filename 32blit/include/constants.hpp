@@ -69,6 +69,9 @@ namespace Constants {
 		const float MAX_SPEED = 10.0f;
 
 		const float JUMP_SPEED = 25.0f;
+		const float CLIMBING_JUMP_SPEED = 20.0f;
+		const float DEATH_JUMP_SPEED = 20.0f;
+		const float CELEBRATION_JUMP_SPEED = 15.0f;
 
 		const float CLIMBING_SPEED = 8.0f;
 
