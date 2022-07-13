@@ -4,7 +4,7 @@ PlayerNinja::PlayerNinja() {
 
 }
 
-PlayerNinja::PlayerNinja(Vec2 position) : Ninja(Colour::Blue, position) {
+PlayerNinja::PlayerNinja(Vec2 position) : Ninja(Colour::BLUE, position) {
 
 }
 

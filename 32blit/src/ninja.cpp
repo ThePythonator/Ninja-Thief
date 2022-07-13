@@ -1,6 +1,6 @@
 #include "ninja.hpp"
 
-Ninja::Ninja() : colour(Colour::Blue) {
+Ninja::Ninja() : colour(Colour::BLUE) {
 	
 }
 
@@ -32,10 +32,10 @@ void Ninja::update(float dt, const Constants::LevelData& level_data) {
 
 	// Update direction the ninja is facing
 	if (velocity.x < 0.0f) {
-		facing_direction = FacingDirection::LEFT;
+		facing_direction = HorizontalDirection::LEFT;
 	}
 	else if (velocity.x > 0.0f) {
-		facing_direction = FacingDirection::RIGHT;
+		facing_direction = HorizontalDirection::RIGHT;
 	}
 }
 
@@ -44,7 +44,7 @@ void Ninja::render(Surface* screen) {
 	uint8_t index_offset = static_cast<uint8_t>(colour) * Constants::Sprites::PLAYER_IMAGES;
 
 	// If ninja is travelling left, flip the image horizontally
-	SpriteTransform transform = facing_direction == FacingDirection::RIGHT ? SpriteTransform::NONE : SpriteTransform::HORIZONTAL;
+	SpriteTransform transform = facing_direction == HorizontalDirection::RIGHT ? SpriteTransform::NONE : SpriteTransform::HORIZONTAL;
 
 	// TODO: Calculate sprite index based on animation frame
 
@@ -120,7 +120,7 @@ void Ninja::handle_platforms(const Constants::LevelData& level_data, uint8_t x, 
 	uint8_t tile_id = level_data.platforms[y * Constants::GAME_WIDTH_TILES + x];
 
 	// Check the tile actually exists
-	if (tile_id != Constants::NO_TILE) {
+	if (tile_id != Constants::Sprites::BLANK_TILE) {
 		Vec2 tile_position = Vec2(x, y) * Constants::SPRITE_SIZE;
 
 		// Is the ninja colliding with the tile?

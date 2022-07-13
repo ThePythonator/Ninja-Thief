@@ -5,6 +5,7 @@
 #include "32blit.hpp"
 
 #include "player_ninja.hpp"
+#include "enemy_ninja.hpp"
 #include "constants.hpp"
 
 using namespace blit;
@@ -24,5 +25,5 @@ private:
 	Constants::LevelData _level_data = {};
 
 	PlayerNinja player;
-	//std::vector<EnemyNinja> enemies;
+	std::vector<EnemyNinja> enemies;
 };

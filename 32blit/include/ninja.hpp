@@ -2,6 +2,7 @@
 
 #include "32blit.hpp"
 
+#include "utilities.hpp"
 #include "constants.hpp"
 
 using namespace blit;
@@ -9,8 +10,8 @@ using namespace blit;
 class Ninja {
 public:
 	enum class Colour {
-		Blue = 0,
-		Red = 1
+		BLUE = 0,
+		RED = 1
 	};
 
 	Ninja();
@@ -45,10 +46,14 @@ protected:
 
 	ClimbingState climbing_state = ClimbingState::NONE;
 
-	enum class FacingDirection {
-		LEFT,
-		RIGHT
+	enum class HorizontalDirection {
+		LEFT = -1,
+		RIGHT = 1
+	};
+	enum class VerticalDirection {
+		UP = -1,
+		DOWN = 1
 	};
 
-	FacingDirection facing_direction = FacingDirection::RIGHT;
+	HorizontalDirection facing_direction = HorizontalDirection::RIGHT;
 };

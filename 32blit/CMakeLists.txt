@@ -9,6 +9,8 @@ set(PROJECT_SOURCES
 	"level.cpp"
 	"ninja.cpp"
 	"player_ninja.cpp"
+	"enemy_ninja.cpp"
+	"utilities.cpp"
 )
 
 # ... and any other files you want in the release here
