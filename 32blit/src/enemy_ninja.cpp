@@ -17,9 +17,36 @@ void EnemyNinja::update(float dt, const Constants::LevelData& level_data) {
 
 		velocity.x = Constants::Enemy::MAX_SPEED * current_direction;
 
+		if (can_climb && climb_next_ladder) {
+			bool can_go_up = ladder_above_or_below(level_data, VerticalDirection::UP);
+			bool can_go_down = ladder_above_or_below(level_data, VerticalDirection::DOWN);
+
+			if (can_go_up && can_go_down) {
+				climbing_state = std::rand() % 2 ? ClimbingState::UP : ClimbingState::DOWN;
+			}
+			else if (can_go_up) {
+				climbing_state = ClimbingState::UP;
+			}
+			else if (can_go_down) {
+				climbing_state = ClimbingState::DOWN;
+			}
+
+			if (climbing_state != ClimbingState::NONE) {
+				// We've now decided to climb
+				ai_state = AIState::CLIMBING;
+			}
+		}
+		else if (!can_climb) {
+			// Keep "re-rolling" while we can't climb
+
+			// Decide if we should climb the next ladder we find
+			climb_next_ladder = random_bool(Constants::Enemy::CLIMB_NEXT_LADDER_CHANCE);
+		}
+
 		break;
 		
 	case AIState::CLIMBING:
+		
 		break;
 
 	default:
@@ -27,6 +54,11 @@ void EnemyNinja::update(float dt, const Constants::LevelData& level_data) {
 	}
 
 	Ninja::update(dt, level_data);
+
+	// If we're no longer in a climbing state, switch back to patrolling
+	if (climbing_state == ClimbingState::NONE) {
+		ai_state = AIState::PATROLLING;
+	}
 }
 
 bool EnemyNinja::platform_ahead(const Constants::LevelData& level_data) {
@@ -41,11 +73,11 @@ bool EnemyNinja::platform_ahead(const Constants::LevelData& level_data) {
 }
 
 bool EnemyNinja::ladder_above_or_below(const Constants::LevelData& level_data, VerticalDirection direction) {
-	// Get a position which would be one tile above the player
+	// Get a position which would be one tile above/below the ninja
 	Vec2 point = Vec2(position.x , position.y + Constants::SPRITE_SIZE * static_cast<int8_t>(direction));
 
 	// Get tile at that position
-	uint8_t tile_id = tile_at_position(level_data.platforms, point);
+	uint8_t tile_id = tile_at_position(level_data.extras, point);
 
 	// Return true if the tile is a ladder
 	return tile_id == Constants::Sprites::LADDER;

@@ -244,12 +244,15 @@ void Ninja::handle_ladders(const Constants::LevelData& level_data, uint8_t x, ui
 					// Set velocity to 0
 					velocity = Vec2();
 
+					// Get climbing speed, depending on whether ninja is the player or an enemy
+					float climbing_speed = colour == Colour::BLUE ? Constants::Player::CLIMBING_SPEED : Constants::Enemy::CLIMBING_SPEED;
+
 					// If player is actually climbing the ladder, set vertical velocity to be in the right direction
 					if (climbing_state == ClimbingState::UP) {
-						velocity.y = -Constants::Player::CLIMBING_SPEED;
+						velocity.y = -climbing_speed;
 					}
 					else if (climbing_state == ClimbingState::DOWN) {
-						velocity.y = Constants::Player::CLIMBING_SPEED;
+						velocity.y = climbing_speed;
 					}
 				}
 			}

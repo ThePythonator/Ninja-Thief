@@ -65,15 +65,20 @@ namespace Constants {
 
 		const float JUMP_SPEED = 25.0f;
 
-		const float CLIMBING_SPEED = 10.0f;
+		const float CLIMBING_SPEED = 8.0f;
 	}
 
 	// Enemy data such as max speed
 	namespace Enemy {
 		const float MAX_SPEED = 3.0f;
 
+		const float CLIMBING_SPEED = 4.0f;
+
 		// Hitbox width for detecting when the enemy ninja is about to walk off a platform
 		const uint8_t PLATFORM_DETECTION_WIDTH = 6;
+
+		// Chance of climbing next ladder
+		const float CLIMB_NEXT_LADDER_CHANCE = 0.1f;
 	}
 
 	// Environment data such as gravity strength

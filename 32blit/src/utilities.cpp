@@ -17,3 +17,7 @@ uint8_t tile_at_position(const uint8_t* tile_array, Vec2 position) {
 	// If we've not return yet, then it's safe to get the tile from the level data
 	return tile_array[y * Constants::GAME_WIDTH_TILES + x];
 }
+
+bool random_bool(float probability) {
+	return (std::rand() % 10001) / 10000.0f < probability;
+}
