@@ -19,7 +19,7 @@ Level::Level(const Constants::LevelData& level_data) : _level_data(level_data) {
 				player = PlayerNinja(position);
 				break;
 
-			case Constants::Sprites::PLAYER_IDLE + Constants::Sprites::PLAYER_IMAGES:
+			case Constants::Sprites::PLAYER_IDLE + Constants::Sprites::PLAYER_OFFSET:
 				enemies.push_back(EnemyNinja(position));
 				break;
 
@@ -57,6 +57,11 @@ void Level::render(Surface* screen) {
 	
 	// Render player
 	player.render(screen);
+
+	// Render score
+	std::string score_string = "Score: " + std::to_string(player.get_score());
+	screen->pen = Pen(0xFF, 0xFF, 0xFF);
+	screen->text(score_string, minimal_font, Point(Constants::SCREEN_WIDTH - 2, 2), true, TextAlign::top_right);
 }
 
 void Level::render_tiles(Surface* screen, const uint8_t* tile_ids) {

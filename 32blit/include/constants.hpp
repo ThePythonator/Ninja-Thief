@@ -18,11 +18,6 @@ namespace Constants {
 	// Each sprite on the spritesheet is 8x8 pixels
 	const uint8_t SPRITE_SIZE = 8;
 
-	// The ninja sprites are smaller in width
-	const uint8_t NINJA_WIDTH = 4;
-	// Calculate the gap between the edge of the sprite and the edge of the ninja on each side
-	const uint8_t NINJA_BORDER = (SPRITE_SIZE - NINJA_WIDTH) / 2;
-
 	// Game area size in tiles
 	const uint8_t GAME_WIDTH_TILES = GAME_WIDTH / SPRITE_SIZE;
 	const uint8_t GAME_HEIGHT_TILES = GAME_HEIGHT / SPRITE_SIZE;
@@ -33,8 +28,11 @@ namespace Constants {
 	// The number of pixels a ninja can intersect a one-way platform, while still being moved back to the top of the platform during collision resolution
 	const uint8_t ONE_WAY_PLATFORM_TOLERANCE = 2;
 
-	// Sprite indices to use for rendering
+	// Sprite data, including indices to use for rendering
 	namespace Sprites {
+		// Offset of the red ninja from the blue ninja
+		const uint8_t PLAYER_OFFSET = 4;
+
 		const uint8_t PLAYER_IDLE = 32;
 		const uint8_t PLAYER_CLIMBING_IDLE = 33;
 		const uint8_t PLAYER_CLIMBING_1 = 34;
@@ -44,18 +42,25 @@ namespace Constants {
 		const uint8_t PLAYER_JUMPING_UP = 42;
 		const uint8_t PLAYER_JUMPING_DOWN = 43;
 
-
-		// Number of images for each player
-		const uint8_t PLAYER_IMAGES = 4;
-
 		const uint8_t BORDER_LEFT = 10;
 		const uint8_t BORDER_FULL = 9;
 		const uint8_t BORDER_RIGHT = 8;
 
 		const uint8_t LADDER = 11;
 
+		const uint8_t COIN = 19;
+		const uint8_t GEM = 18;
+
 		// A blank tile is represented by 0xff in the level arrays
 		const uint8_t BLANK_TILE = 0xff;
+	}
+
+	// Generic ninja data such as size
+	namespace Ninja {
+		// The ninja sprites are smaller in width
+		const uint8_t WIDTH = 4;
+		// Calculate the gap between the edge of the sprite and the edge of the ninja on each side
+		const uint8_t BORDER = (SPRITE_SIZE - WIDTH) / 2;
 	}
 
 	// Player data such as max speed and acceleration
@@ -79,6 +84,17 @@ namespace Constants {
 
 		// Chance of climbing next ladder
 		const float CLIMB_NEXT_LADDER_CHANCE = 0.1f;
+	}
+	
+	// Data for "Collectables" (gems and coins), such as value of each
+	namespace Collectable {
+		// The coin and gem sprites are smaller in size
+		const uint8_t SIZE = 4;
+		// Calculate the gap between the edge of the sprite and the edge of the actual coin/gem
+		const uint8_t BORDER = (SPRITE_SIZE - SIZE) / 2;
+
+		const uint8_t COIN_SCORE = 2;
+		const uint8_t GEM_SCORE = 5;
 	}
 
 	// Environment data such as gravity strength

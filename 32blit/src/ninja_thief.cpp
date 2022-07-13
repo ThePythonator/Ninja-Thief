@@ -47,9 +47,4 @@ void render(uint32_t time) {
 
     // Render the level, which includes drawing the player and enemies
     level.render(&screen);
-
-
-    // Draw some text at the top of the screen
-    screen.pen = Pen(0xFF, 0xFF, 0xFF);
-    screen.text("Score: 0", minimal_font, Point(Constants::SCREEN_WIDTH - 2, 2), true, TextAlign::top_right);
 }

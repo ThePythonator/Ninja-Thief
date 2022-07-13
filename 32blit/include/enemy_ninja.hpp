@@ -7,7 +7,7 @@ public:
 	EnemyNinja();
 	EnemyNinja(Vec2 position);
 
-	void update(float dt, const Constants::LevelData& level_data);
+	void update(float dt, Constants::LevelData& level_data);
 
 private:
 	// Returns true if there is a platform tile which is one block below and just in front of the ninja

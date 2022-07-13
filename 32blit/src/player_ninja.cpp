@@ -8,7 +8,7 @@ PlayerNinja::PlayerNinja(Vec2 position) : Ninja(Colour::BLUE, position) {
 
 }
 
-void PlayerNinja::update(float dt, const Constants::LevelData& level_data) {
+void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 	// Handle any buttons the user has pressed
 	// Note: "else if" isn't used, because otherwise one direction will be favoured when both buttons are pressed
 	// Instead, we add/subtract the velocity, so if both are pressed, nothing happens
@@ -47,4 +47,37 @@ void PlayerNinja::update(float dt, const Constants::LevelData& level_data) {
 
 	// Call parent update method
 	Ninja::update(dt, level_data);
+}
+
+void PlayerNinja::handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y) {
+	// Calculate position of tile in array
+	uint8_t array_position = y * Constants::GAME_WIDTH_TILES + x;
+
+	// Get tile's sprite index from level data
+	uint8_t tile_id = level_data.extras[array_position];
+
+	// Check the tile is a coin or gem
+	if (tile_id == Constants::Sprites::COIN || tile_id == Constants::Sprites::GEM) {
+		Vec2 tile_position = Vec2(x, y) * Constants::SPRITE_SIZE;
+
+		// Is the ninja colliding with the tile?
+		// Note: we use a smaller object_size since the coins and gems are smaller, which also means we have to offset the tile_position
+		if (check_colliding(tile_position + Vec2(1.0f, 1.0f) * Constants::Collectable::BORDER, Constants::Collectable::SIZE)) {
+
+			// Add the correct amount of score if it's a coin or gem tile
+			if (tile_id == Constants::Sprites::COIN) {
+				score += Constants::Collectable::COIN_SCORE;
+			}
+			else if (tile_id == Constants::Sprites::GEM) {
+				score += Constants::Collectable::GEM_SCORE;
+			}
+
+			// Remove item from level data
+			level_data.extras[array_position] = Constants::Sprites::BLANK_TILE;
+		}
+	}
+}
+
+uint8_t PlayerNinja::get_score() {
+	return score;
 }

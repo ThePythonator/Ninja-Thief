@@ -8,7 +8,7 @@ EnemyNinja::EnemyNinja(Vec2 position) : Ninja(Colour::RED, position) {
 
 }
 
-void EnemyNinja::update(float dt, const Constants::LevelData& level_data) {
+void EnemyNinja::update(float dt, Constants::LevelData& level_data) {
 	switch (ai_state) {
 	case AIState::PATROLLING:
 		if (!platform_ahead(level_data)) {
