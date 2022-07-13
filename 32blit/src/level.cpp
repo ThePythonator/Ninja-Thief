@@ -31,12 +31,35 @@ Level::Level(const Constants::LevelData& level_data) : _level_data(level_data) {
 }
 
 void Level::update(float dt) {
-	// Update player
-	player.update(dt, _level_data);
+	switch (level_state) {
+	case LevelState::PLAYING:
+		// Update player
+		player.update(dt, _level_data);
 
-	// Update enemies
-	for (EnemyNinja& enemy : enemies) {
-		enemy.update(dt, _level_data);
+		// Update enemies
+		for (EnemyNinja& enemy : enemies) {
+			enemy.update(dt, _level_data);
+
+			if (player.check_colliding(enemy)) {
+				// Player is now dead, trigger "fall" animation, before restarting level
+				level_state = LevelState::PLAYER_DEAD;
+
+				player.set_dead();
+			}
+		}
+
+		break;
+
+	case LevelState::PLAYER_DEAD:
+		player.update(dt, _level_data);
+
+		break;
+
+	case LevelState::PLAYER_WON:
+		break;
+
+	default:
+		break;
 	}
 }
 
@@ -62,6 +85,14 @@ void Level::render(Surface* screen) {
 	std::string score_string = "Score: " + std::to_string(player.get_score());
 	screen->pen = Pen(0xFF, 0xFF, 0xFF);
 	screen->text(score_string, minimal_font, Point(Constants::SCREEN_WIDTH - 2, 2), true, TextAlign::top_right);
+}
+
+bool Level::level_failed() {
+	return level_state == LevelState::FAILED;
+}
+
+bool Level::level_complete() {
+	return level_state == LevelState::COMPLETE;
 }
 
 void Level::render_tiles(Surface* screen, const uint8_t* tile_ids) {

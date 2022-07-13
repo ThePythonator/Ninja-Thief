@@ -19,6 +19,9 @@ public:
 	void update(float dt);
 	void render(Surface* screen);
 
+	bool level_failed();
+	bool level_complete();
+
 private:
 	void render_tiles(Surface* screen, const uint8_t* tile_ids);
 	void render_border(Surface* screen);
@@ -27,4 +30,14 @@ private:
 
 	PlayerNinja player;
 	std::vector<EnemyNinja> enemies;
+
+	enum class LevelState {
+		PLAYING,
+		PLAYER_DEAD,
+		PLAYER_WON,
+		FAILED,
+		COMPLETE
+	};
+
+	LevelState level_state = LevelState::PLAYING;
 };

@@ -12,8 +12,8 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	// Set can_jump to false - it is set to true later in this method, only if the ninja is on a platform
 	can_jump = false;
 
-	// Apply gravity, only if ninja isn't climbing a ladder
-	if (climbing_state == ClimbingState::NONE) velocity.y += Constants::Environment::GRAVITY_ACCELERATION * dt;
+	// Apply gravity, only if ninja isn't climbing a ladder (or if ninja is dead)
+	if (climbing_state == ClimbingState::NONE || dead) velocity.y += Constants::Environment::GRAVITY_ACCELERATION * dt;
 
 	// Update position from velocity
 	position += velocity * dt;
@@ -27,7 +27,7 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	}
 
 	// Detect and resolve any collisions with platforms, ladders, coins etc
-	handle_collisions(level_data);
+	if (!dead) handle_collisions(level_data);
 
 
 	// Update direction the ninja is facing
@@ -80,6 +80,19 @@ bool Ninja::check_colliding(Vec2 object_position, uint8_t object_size) {
 		(position.x + Constants::Ninja::BORDER < object_position.x + object_size) &&
 		(position.y + Constants::SPRITE_SIZE > object_position.y) &&
 		(position.y < object_position.y + object_size);
+}
+
+bool Ninja::check_colliding(Ninja& ninja) {
+	Vec2 ninja_position = ninja.get_position();
+
+	return (position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > ninja_position.x + Constants::Ninja::BORDER) &&
+		(position.x + Constants::Ninja::BORDER < ninja_position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER) &&
+		(position.y + Constants::SPRITE_SIZE > ninja_position.y) &&
+		(position.y < ninja_position.y + Constants::SPRITE_SIZE);
+}
+
+Vec2 Ninja::get_position() {
+	return position;
 }
 
 void Ninja::handle_collisions(Constants::LevelData& level_data) {

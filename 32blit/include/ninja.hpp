@@ -21,6 +21,9 @@ public:
 	void render(Surface* screen);
 
 	bool check_colliding(Vec2 object_position, uint8_t object_size);
+	bool check_colliding(Ninja& ninja);
+
+	Vec2 get_position();
 
 protected:
 	void handle_collisions(Constants::LevelData& level_data);
@@ -59,4 +62,7 @@ protected:
 	};
 
 	HorizontalDirection facing_direction = HorizontalDirection::RIGHT;
+
+	// When a ninja is dead, they no longer collide with any tiles, but still act under gravity
+	bool dead = false;
 };

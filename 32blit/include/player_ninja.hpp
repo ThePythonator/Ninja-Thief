@@ -13,6 +13,8 @@ public:
 
 	uint8_t get_score();
 
+	void set_dead();
+
 private:
 	uint8_t score = 0;
 };
