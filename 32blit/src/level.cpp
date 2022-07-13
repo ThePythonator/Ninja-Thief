@@ -48,10 +48,20 @@ void Level::update(float dt) {
 			}
 		}
 
+		if (player.get_position().y > Constants::GAME_HEIGHT) {
+			// Player has gone off the bottom of the screen, so they're dead
+			level_state = LevelState::FAILED;
+		}
+
 		break;
 
 	case LevelState::PLAYER_DEAD:
 		player.update(dt, _level_data);
+
+		if (player.get_position().y > Constants::GAME_HEIGHT) {
+			// Player has gone off the bottom of the screen
+			level_state = LevelState::FAILED;
+		}
 
 		break;
 

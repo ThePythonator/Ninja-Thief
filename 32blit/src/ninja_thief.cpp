@@ -33,6 +33,11 @@ void update(uint32_t time) {
     if (dt > 0.05f) dt = 0.05f;
 
     level.update(dt);
+
+    if (level.level_failed()) {
+        // Restart the same level
+        level = Level(Constants::LEVELS[0]);
+    }
 }
 
 // Render the game (draw it to the display)
