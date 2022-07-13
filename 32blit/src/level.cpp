@@ -85,8 +85,8 @@ void Level::update(float dt) {
 		// Update player
 		player.update(dt, level_data);
 
-		if (player.finished_celebrating()) {
-			// Player has finished doing victory jumps
+		if (player.finished_celebrating() || player.get_position().y > Constants::GAME_HEIGHT) {
+			// Player has finished doing victory jumps, or has fallen off the screen
 			level_state = LevelState::COMPLETE;
 		}
 
@@ -123,7 +123,7 @@ void Level::render(Surface* screen) {
 
 
 	// Render level number
-	std::string level_string = "Level: " + std::to_string(level_number);
+	std::string level_string = "Level: " + std::to_string(level_number + 1);
 	screen->pen = Pen(0xFF, 0xFF, 0xFF);
 	screen->text(level_string, minimal_font, Point(2, 2), true, TextAlign::top_left);
 
