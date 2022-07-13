@@ -23,7 +23,7 @@ void init() {
     background = Surface::load(asset_background);
 
     // Load the first level
-    level = Level(Constants::LEVELS[0]);
+    level = Level(0);
 }
 
 // Update the game
@@ -38,14 +38,14 @@ void update(uint32_t time) {
 
     if (level.level_failed()) {
         // Restart the same level
-        level = Level(Constants::LEVELS[current_level]);
+        level = Level(current_level);
     }
     else if (level.level_complete()) {
         // Start the next level
         current_level++;
         current_level %= Constants::LEVEL_COUNT;
 
-        level = Level(Constants::LEVELS[current_level]);
+        level = Level(current_level);
     }
 }
 

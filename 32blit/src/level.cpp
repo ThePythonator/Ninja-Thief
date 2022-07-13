@@ -4,13 +4,17 @@ Level::Level() {
 
 }
 
-Level::Level(const Constants::LevelData& level_data) : _level_data(level_data) {
+Level::Level(uint8_t _level_number) {
+	level_number = _level_number;
+
+	level_data = Constants::LEVELS[level_number];
+
 	// Search for player spawn position and create PlayerNinja object
 	// Search for enemy spawn positions and create EnemyNinja objects and add them to a vector
 
 	for (uint8_t y = 0; y < Constants::GAME_HEIGHT_TILES; y++) {
 		for (uint8_t x = 0; x < Constants::GAME_WIDTH_TILES; x++) {
-			uint8_t spawn_id = _level_data.entity_spawns[y * Constants::GAME_WIDTH_TILES + x];
+			uint8_t spawn_id = level_data.entity_spawns[y * Constants::GAME_WIDTH_TILES + x];
 
 			Vec2 position = Vec2(x, y) * Constants::SPRITE_SIZE;
 
@@ -35,7 +39,7 @@ void Level::update(float dt) {
 	case LevelState::PLAYING:
 
 		// Update player
-		player.update(dt, _level_data);
+		player.update(dt, level_data);
 
 		if (coins_left() == 0) {
 			// No more coins left, so the player has won!
@@ -47,7 +51,7 @@ void Level::update(float dt) {
 
 		// Update enemies
 		for (EnemyNinja& enemy : enemies) {
-			enemy.update(dt, _level_data);
+			enemy.update(dt, level_data);
 
 			if (player.check_colliding(enemy)) {
 				// Player is now dead, trigger "fall" animation, before restarting level
@@ -67,7 +71,7 @@ void Level::update(float dt) {
 	case LevelState::PLAYER_DEAD:
 
 		// Update player
-		player.update(dt, _level_data);
+		player.update(dt, level_data);
 
 		if (player.get_position().y > Constants::GAME_HEIGHT) {
 			// Player has gone off the bottom of the screen
@@ -79,7 +83,7 @@ void Level::update(float dt) {
 	case LevelState::PLAYER_WON:
 
 		// Update player
-		player.update(dt, _level_data);
+		player.update(dt, level_data);
 
 		if (player.finished_celebrating()) {
 			// Player has finished doing victory jumps
@@ -97,11 +101,17 @@ void Level::render(Surface* screen) {
 	// Render border
 	render_border(screen);
 
+	// Render background pipes
+	screen->alpha = 0x80;
+	render_tiles(screen, level_data.pipes);
+	screen->alpha = 0xff;
+
+
 	// Render platforms
-	render_tiles(screen, _level_data.platforms);
+	render_tiles(screen, level_data.platforms);
 
 	// Render extras (coins, gems and ladders)
-	render_tiles(screen, _level_data.extras);
+	render_tiles(screen, level_data.extras);
 
 	// Render enemies
 	for (EnemyNinja& enemy : enemies) {
@@ -110,6 +120,12 @@ void Level::render(Surface* screen) {
 	
 	// Render player
 	player.render(screen);
+
+
+	// Render level number
+	std::string level_string = "Level: " + std::to_string(level_number);
+	screen->pen = Pen(0xFF, 0xFF, 0xFF);
+	screen->text(level_string, minimal_font, Point(2, 2), true, TextAlign::top_left);
 
 	// Render score
 	std::string score_string = "Score: " + std::to_string(player.get_score());
@@ -164,7 +180,7 @@ uint8_t Level::coins_left() {
 	uint8_t total = 0;
 
 	for (uint8_t i = 0; i < Constants::GAME_WIDTH_TILES * Constants::GAME_HEIGHT_TILES; i++) {
-		if (_level_data.extras[i] == Constants::Sprites::COIN) {
+		if (level_data.extras[i] == Constants::Sprites::COIN) {
 			total++;
 		}
 	}

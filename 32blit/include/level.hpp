@@ -14,7 +14,7 @@ using namespace blit;
 class Level {
 public:
 	Level();
-	Level(const Constants::LevelData& level_data);
+	Level(uint8_t _level_number);
 
 	void update(float dt);
 	void render(Surface* screen);
@@ -28,7 +28,8 @@ private:
 
 	uint8_t coins_left();
 
-	Constants::LevelData _level_data = {};
+	Constants::LevelData level_data = {};
+	uint8_t level_number = 0;
 
 	PlayerNinja player;
 	std::vector<EnemyNinja> enemies;
