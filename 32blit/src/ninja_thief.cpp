@@ -32,7 +32,9 @@ void update(uint32_t time) {
     float dt = (time - last_time) / 1000.0f;
 
     // Cap dt (for when the game is paused)
-    if (dt > 0.05f) dt = 0.05f;
+    if (dt > 0.05f) {
+        dt = 0.05f;
+    }
 
     level.update(dt);
 

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 
 project(NinjaThief_32blit)
 
-# Add your sources here (adding headers is optional, but helps some CMake generators)
+# Add your sources here
 set(PROJECT_SOURCES
 	"ninja_thief.cpp"
 	"level.cpp"

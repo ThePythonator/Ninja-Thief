@@ -13,7 +13,9 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	can_jump = false;
 
 	// Apply gravity, only if ninja isn't climbing a ladder (or if ninja is dead)
-	if (climbing_state == ClimbingState::NONE || dead) velocity.y += Constants::Environment::GRAVITY_ACCELERATION * dt;
+	if (climbing_state == ClimbingState::NONE || dead) {
+		velocity.y += Constants::Environment::GRAVITY_ACCELERATION * dt;
+	}
 
 	// Update position from velocity
 	position += velocity * dt;
@@ -27,7 +29,9 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	}
 
 	// Detect and resolve any collisions with platforms, ladders, coins etc
-	if (!dead) handle_collisions(level_data);
+	if (!dead) {
+		handle_collisions(level_data);
+	}
 
 
 	// Update direction the ninja is facing
@@ -62,7 +66,7 @@ void Ninja::render(Surface* screen) {
 	}
 
 
-	screen->sprite(index, Point(position.x, position.y) + Constants::GAME_OFFSET, transform);
+	screen->sprite(index, Point(std::round(position.x), std::round(position.y)) + Constants::GAME_OFFSET, transform);
 }
 
 bool Ninja::check_colliding(Vec2 object_position, uint8_t object_size) {
@@ -115,10 +119,14 @@ void Ninja::handle_collisions(Constants::LevelData& level_data) {
 	}
 
 	// If ninja can no longer climb, reset their climbing state
-	if (!can_climb) climbing_state = ClimbingState::NONE;
+	if (!can_climb) {
+		climbing_state = ClimbingState::NONE;
+	}
 
 	// If player is on a ladder, they can jump
-	if (climbing_state != ClimbingState::NONE) can_jump = true;
+	if (climbing_state != ClimbingState::NONE) {
+		can_jump = true;
+	}
 }
 
 void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_t y) {

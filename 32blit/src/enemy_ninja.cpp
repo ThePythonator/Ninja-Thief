@@ -44,9 +44,9 @@ void EnemyNinja::update(float dt, Constants::LevelData& level_data) {
 		}
 
 		break;
-		
+
 	case AIState::CLIMBING:
-		
+
 		break;
 
 	default:
@@ -61,7 +61,7 @@ void EnemyNinja::update(float dt, Constants::LevelData& level_data) {
 	}
 }
 
-bool EnemyNinja::platform_ahead(const Constants::LevelData& level_data) {
+bool EnemyNinja::platform_ahead(Constants::LevelData& level_data) {
 	// Get a position which would be just in front of the ninja (and one tile below them)
 	Vec2 point = Vec2(position.x + Constants::SPRITE_SIZE / 2 + current_direction * Constants::Enemy::PLATFORM_DETECTION_WIDTH / 2, position.y + Constants::SPRITE_SIZE);
 
@@ -72,7 +72,7 @@ bool EnemyNinja::platform_ahead(const Constants::LevelData& level_data) {
 	return tile_id != Constants::Sprites::BLANK_TILE;
 }
 
-bool EnemyNinja::ladder_above_or_below(const Constants::LevelData& level_data, VerticalDirection direction) {
+bool EnemyNinja::ladder_above_or_below(Constants::LevelData& level_data, VerticalDirection direction) {
 	// Get a position which would be one tile above/below the ninja
 	Vec2 point = Vec2(position.x , position.y + Constants::SPRITE_SIZE * static_cast<int8_t>(direction));
 
