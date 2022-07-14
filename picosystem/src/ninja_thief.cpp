@@ -30,13 +30,12 @@ void init() {
 // Update the game
 void update(uint32_t tick) {
     // Calculate change in time (in seconds) since last frame
-    //float dt = (time() - last_time) / 1000.0f;
-    float dt = 0.05f;
+    float dt = (time() - last_time) / 1000.0f;
 
     // Cap dt (in case the game is paused/lagging)
-    if (dt > 0.05f) {
+    /*if (dt > 0.05f) {
         dt = 0.05f;
-    }
+    }*/
 
     level.update(dt);
 
