@@ -32,6 +32,8 @@ void update(uint32_t tick) {
     // Calculate change in time (in seconds) since last frame
     float dt = (time() - last_time) / 1000.0f;
 
+    text(std::to_string(1.0f / dt), 10, 10);
+
     // Cap dt (in case the game is paused/lagging)
     if (dt > 0.1f) {
         dt = 0.1f;
