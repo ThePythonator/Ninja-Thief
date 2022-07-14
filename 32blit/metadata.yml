@@ -2,9 +2,9 @@ title: Ninja Thief
 description: A tutorial project for the 32blit. Collect all the coins while avoiding the enemy ninjas!
 author: ThePythonator
 splash:
-  file: assets/no-image.png
+  file: assets/logo.png
 icon:
-  file: assets/no-icon.png
-version: v0.0.1
+  file: assets/icon.png
+version: v1.0.0
 category: game
 url: https://github.com/ThePythonator/Ninja-Thief
