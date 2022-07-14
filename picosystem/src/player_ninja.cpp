@@ -25,17 +25,17 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		// Note: "else if" isn't used, because otherwise one direction will be favoured when both buttons are pressed
 		// Instead, we add/subtract the velocity, so if both are pressed, nothing happens
 
-		if (buttons & Button::DPAD_LEFT) {
+		if (button(LEFT)) {
 			velocity_x -= Constants::Player::MAX_SPEED;
 		}
-		if (buttons & Button::DPAD_RIGHT) {
+		if (button(RIGHT)) {
 			velocity_x += Constants::Player::MAX_SPEED;
 		}
 
 		// Handle climbing
 		if (can_climb) {
-			bool up = buttons & Button::DPAD_UP;
-			bool down = buttons & Button::DPAD_DOWN;
+			bool up = button(UP);
+			bool down = button(DOWN);
 
 			if (up != down) {
 				// Only one of up and down are selected
@@ -48,7 +48,7 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		}
 
 		// Handle jumping
-		if (buttons & Button::A) {
+		if (button(A)) {
 			if (can_jump) {
 				// Player is on platform so is allowed to jump
 				jump(climbing_state == ClimbingState::NONE ? Constants::Player::JUMP_SPEED : Constants::Player::CLIMBING_JUMP_SPEED);
