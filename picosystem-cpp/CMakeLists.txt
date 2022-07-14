@@ -1,7 +1,7 @@
 # Basic parameters
 cmake_minimum_required(VERSION 3.12)
 
-set(PROJECT_NAME NinjaThief_32blit)
+set(PROJECT_NAME NinjaThief_PicoSystem)
 
 # Set your project sources here
 set(PROJECT_SOURCES
