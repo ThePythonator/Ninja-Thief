@@ -18,7 +18,7 @@ public:
 	Ninja(Colour _colour, Vec2 _position);
 
 	void update(float dt, Constants::LevelData& level_data);
-	void render(Surface* screen);
+	void render();
 
 	bool check_colliding(Vec2 object_position, uint8_t object_size);
 	bool check_colliding(Ninja& ninja);

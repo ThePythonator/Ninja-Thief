@@ -43,7 +43,7 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	}
 }
 
-void Ninja::render(Surface* screen) {
+void Ninja::render() {
 	// Calculate offset from sprite indices provided in constants.hpp (depending on colour)
 	uint8_t index_offset = static_cast<uint8_t>(colour) * Constants::Sprites::PLAYER_OFFSET;
 
@@ -66,7 +66,7 @@ void Ninja::render(Surface* screen) {
 	}
 
 
-	screen->sprite(index, Point(std::round(position.x), std::round(position.y)) + Constants::GAME_OFFSET, transform);
+	screen.sprite(index, Point(std::round(position.x), std::round(position.y)) + Constants::GAME_OFFSET, transform);
 }
 
 bool Ninja::check_colliding(Vec2 object_position, uint8_t object_size) {

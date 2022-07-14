@@ -62,5 +62,5 @@ void render(uint32_t time) {
     screen.blit(background, Rect(0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT), Point(0, 0));
 
     // Render the level, which includes drawing the player and enemies
-    level.render(&screen);
+    level.render();
 }

@@ -17,14 +17,14 @@ public:
 	Level(uint8_t _level_number);
 
 	void update(float dt);
-	void render(Surface* screen);
+	void render();
 
 	bool level_failed();
 	bool level_complete();
 
 private:
-	void render_tiles(Surface* screen, const uint8_t* tile_ids);
-	void render_border(Surface* screen);
+	void render_tiles(const uint8_t* tile_ids);
+	void render_border();
 
 	uint8_t coins_left();
 
