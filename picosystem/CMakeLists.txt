@@ -35,6 +35,8 @@ pico_sdk_init()
 # Find the PicoSystem library
 include(picosystem_sdk_import.cmake)
 
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
 # Create the output target
 picosystem_executable(
   ${PROJECT_NAME}
