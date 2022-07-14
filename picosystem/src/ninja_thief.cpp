@@ -30,7 +30,8 @@ void init() {
 // Update the game
 void update(uint32_t tick) {
     // Calculate change in time (in seconds) since last frame
-    float dt = (time() - last_time) / 1000.0f;
+    //float dt = (time() - last_time) / 1000.0f;
+    float dt = 0.02f;
 
     // Cap dt (in case the game is paused/lagging)
     if (dt > 0.05f) {
@@ -54,13 +55,12 @@ void update(uint32_t tick) {
 
 // Render the game (draw it to the display)
 void draw(uint32_t tick) {
-
     // Clear the screen
-    pen(0x50, 0x58, 0x60);
+    pen();
     clear();
 
     // Draw the background
-    //blit(background, 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, 0, 0);
+    blit(background, 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, 0, 0);
 
     // Render the level, which includes drawing the player and enemies
     level.render();
