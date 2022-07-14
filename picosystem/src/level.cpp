@@ -162,27 +162,6 @@ void Level::render_tiles(const uint8_t* tile_ids) {
 	}
 }
 
-void Level::render_border() {
-	// Render border (only needed for 32blit, with the wider screen)
-	for (uint8_t y = 0; y < Constants::SCREEN_HEIGHT; y += Constants::SPRITE_SIZE) {
-		// Left border:
-		uint8_t x = 0;
-		while (x < Constants::GAME_OFFSET_X - Constants::SPRITE_SIZE) {
-			sprite(Constants::Sprites::BORDER_FULL, x, y);
-			x += Constants::SPRITE_SIZE;
-		}
-		sprite(Constants::Sprites::BORDER_LEFT, x, y);
-
-		// Right border:
-		x = Constants::SCREEN_WIDTH;
-		while (x > Constants::SCREEN_WIDTH - Constants::GAME_OFFSET_X) {
-			sprite(Constants::Sprites::BORDER_FULL, x, y);
-			x -= Constants::SPRITE_SIZE;
-		}
-		sprite(Constants::Sprites::BORDER_RIGHT, x, y);
-	}
-}
-
 uint8_t Level::coins_left() {
 	uint8_t total = 0;
 

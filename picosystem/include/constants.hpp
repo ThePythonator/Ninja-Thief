@@ -5,7 +5,7 @@
 
 namespace Constants {
 	// Screen size in pixels
-	const uint8_t SCREEN_WIDTH = 160;
+	const uint8_t SCREEN_WIDTH = 120;
 	const uint8_t SCREEN_HEIGHT = 120;
 
 	// Actual game area in pixels

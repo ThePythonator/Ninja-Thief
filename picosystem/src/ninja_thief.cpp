@@ -13,6 +13,9 @@ float last_time = 0.0f;
 
 // Setup the game
 void init() {
+    // Set blend mode
+    blend(ALPHA);
+
     // Load the spritesheet
     buffer_t* sprites = buffer(Constants::SPRITESHEET_WIDTH, Constants::SPRITESHEET_HEIGHT, asset_sprites);
     spritesheet(sprites);

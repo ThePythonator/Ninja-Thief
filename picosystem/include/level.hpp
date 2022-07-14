@@ -24,7 +24,6 @@ public:
 
 private:
 	void render_tiles(const uint8_t* tile_ids);
-	void render_border();
 
 	uint8_t coins_left();
 
