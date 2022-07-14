@@ -56,11 +56,11 @@ void update(uint32_t tick) {
 void draw(uint32_t tick) {
 
     // Clear the screen
-    pen();
+    pen(0x50, 0x58, 0x60);
     clear();
 
     // Draw the background
-    blit(background, 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, 0, 0);
+    //blit(background, 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, 0, 0);
 
     // Render the level, which includes drawing the player and enemies
     level.render();
