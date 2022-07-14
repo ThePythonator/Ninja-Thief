@@ -64,23 +64,23 @@ namespace Constants {
 	// Player data such as max speed and acceleration
 	namespace Player {
 		// Speeds are measured in pixels per second
-		const float MAX_SPEED = 10.0f;
+		const float MAX_SPEED = 50.0f;
 
-		const float JUMP_SPEED = 25.0f;
-		const float CLIMBING_JUMP_SPEED = 20.0f;
-		const float DEATH_JUMP_SPEED = 20.0f;
-		const float CELEBRATION_JUMP_SPEED = 15.0f;
+		const float JUMP_SPEED = 125.0f;
+		const float CLIMBING_JUMP_SPEED = 100.0f;
+		const float DEATH_JUMP_SPEED = 100.0f;
+		const float CELEBRATION_JUMP_SPEED = 75.0f;
 
-		const float CLIMBING_SPEED = 8.0f;
+		const float CLIMBING_SPEED = 40.0f;
 
 		const uint8_t CELEBRATION_JUMP_COUNT = 3;
 	}
 
 	// Enemy data such as max speed
 	namespace Enemy {
-		const float MAX_SPEED = 3.0f;
+		const float MAX_SPEED = 15.0f;
 
-		const float CLIMBING_SPEED = 4.0f;
+		const float CLIMBING_SPEED = 20.0f;
 
 		// Hitbox width for detecting when the enemy ninja is about to walk off a platform
 		const uint8_t PLATFORM_DETECTION_WIDTH = 6;
@@ -102,7 +102,7 @@ namespace Constants {
 
 	// Environment data such as gravity strength
 	namespace Environment {
-		const float GRAVITY_ACCELERATION = 15.0f;
+		const float GRAVITY_ACCELERATION = 375.0f;
 	}
 
 	// Level data (each level is a 2D array of the tile indices)
