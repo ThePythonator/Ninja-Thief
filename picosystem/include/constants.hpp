@@ -44,10 +44,6 @@ namespace Constants {
 		const uint8_t PLAYER_JUMPING_UP = 42;
 		const uint8_t PLAYER_JUMPING_DOWN = 43;
 
-		const uint8_t BORDER_LEFT = 10;
-		const uint8_t BORDER_FULL = 9;
-		const uint8_t BORDER_RIGHT = 8;
-
 		const uint8_t LADDER = 11;
 
 		const uint8_t COIN = 19;
