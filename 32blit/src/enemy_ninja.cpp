@@ -4,7 +4,7 @@ EnemyNinja::EnemyNinja() : Ninja() {
 
 }
 
-EnemyNinja::EnemyNinja(Vec2 position) : Ninja(Colour::RED, position) {
+EnemyNinja::EnemyNinja(float x, float y) : Ninja(Colour::RED, x, y) {
 
 }
 
@@ -15,7 +15,7 @@ void EnemyNinja::update(float dt, Constants::LevelData& level_data) {
 			current_direction = -current_direction;
 		}
 
-		velocity.x = Constants::Enemy::MAX_SPEED * current_direction;
+		velocity_x = Constants::Enemy::MAX_SPEED * current_direction;
 
 		if (can_climb && climb_next_ladder) {
 			bool can_go_up = ladder_above_or_below(level_data, VerticalDirection::UP);
@@ -63,10 +63,11 @@ void EnemyNinja::update(float dt, Constants::LevelData& level_data) {
 
 bool EnemyNinja::platform_ahead(Constants::LevelData& level_data) {
 	// Get a position which would be just in front of the ninja (and one tile below them)
-	Vec2 point = Vec2(position.x + Constants::SPRITE_SIZE / 2 + current_direction * Constants::Enemy::PLATFORM_DETECTION_WIDTH / 2, position.y + Constants::SPRITE_SIZE);
+	float point_x = position_x + Constants::SPRITE_SIZE / 2 + current_direction * Constants::Enemy::PLATFORM_DETECTION_WIDTH / 2;
+	float point_y = position_y + Constants::SPRITE_SIZE;
 
 	// Get tile at that position
-	uint8_t tile_id = tile_at_position(level_data.platforms, point);
+	uint8_t tile_id = tile_at_position(level_data.platforms, point_x, point_y);
 
 	// Return true if the tile is a platform (i.e. isn't an empty tile)
 	return tile_id != Constants::Sprites::BLANK_TILE;
@@ -74,10 +75,11 @@ bool EnemyNinja::platform_ahead(Constants::LevelData& level_data) {
 
 bool EnemyNinja::ladder_above_or_below(Constants::LevelData& level_data, VerticalDirection direction) {
 	// Get a position which would be one tile above/below the ninja
-	Vec2 point = Vec2(position.x , position.y + Constants::SPRITE_SIZE * static_cast<int8_t>(direction));
+	float point_x = position_x;
+	float point_y = position_y + Constants::SPRITE_SIZE * static_cast<int8_t>(direction);
 
 	// Get tile at that position
-	uint8_t tile_id = tile_at_position(level_data.extras, point);
+	uint8_t tile_id = tile_at_position(level_data.extras, point_x, point_y);
 
 	// Return true if the tile is a ladder
 	return tile_id == Constants::Sprites::LADDER;

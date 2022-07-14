@@ -5,7 +5,7 @@
 class PlayerNinja : public Ninja {
 public:
 	PlayerNinja();
-	PlayerNinja(Vec2 position);
+	PlayerNinja(float x, float y);
 
 	void update(float dt, Constants::LevelData& level_data);
 

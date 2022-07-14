@@ -15,15 +15,16 @@ public:
 	};
 
 	Ninja();
-	Ninja(Colour _colour, Vec2 _position);
+	Ninja(Colour _colour, float x, float y);
 
 	void update(float dt, Constants::LevelData& level_data);
 	void render();
 
-	bool check_colliding(Vec2 object_position, uint8_t object_size);
+	bool check_colliding(float object_x, float object_y, uint8_t object_size);
 	bool check_colliding(Ninja& ninja);
 
-	Vec2 get_position();
+	float get_x();
+	float get_y();
 
 protected:
 	void handle_collisions(Constants::LevelData& level_data);
@@ -37,7 +38,10 @@ protected:
 
 	Colour colour;
 
-	Vec2 velocity, position;
+	float position_x = 0.0f;
+	float position_y = 0.0f;
+	float velocity_x = 0.0f;
+	float velocity_y = 0.0f;
 
 	// Flags
 	bool can_jump = false;

@@ -1,10 +1,7 @@
 #pragma once
 
+#include <cstdlib>
 #include <cstdint>
-
-#include "32blit.hpp"
-
-using namespace blit;
 
 namespace Constants {
 	// Screen size in pixels
@@ -23,7 +20,8 @@ namespace Constants {
 	const uint8_t GAME_HEIGHT_TILES = GAME_HEIGHT / SPRITE_SIZE;
 
 	// Offset of game area from top left corner
-	const Point GAME_OFFSET = Point(Constants::SCREEN_WIDTH - Constants::GAME_WIDTH, Constants::SCREEN_HEIGHT - Constants::GAME_HEIGHT) / 2;
+	const float GAME_OFFSET_X = (Constants::SCREEN_WIDTH - Constants::GAME_WIDTH) / 2;
+	const float GAME_OFFSET_Y = (Constants::SCREEN_HEIGHT - Constants::GAME_HEIGHT) / 2;
 
 	// The number of pixels a ninja can intersect a one-way platform, while still being moved back to the top of the platform during collision resolution
 	const uint8_t ONE_WAY_PLATFORM_TOLERANCE = 2;

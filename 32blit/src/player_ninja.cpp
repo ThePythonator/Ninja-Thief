@@ -4,13 +4,13 @@ PlayerNinja::PlayerNinja() {
 
 }
 
-PlayerNinja::PlayerNinja(Vec2 position) : Ninja(Colour::BLUE, position) {
+PlayerNinja::PlayerNinja(float x, float y) : Ninja(Colour::BLUE, x, y) {
 
 }
 
 void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 	// If nothing is pressed, the player shouldn't move
-	velocity.x = 0.0f;
+	velocity_x = 0.0f;
 
 	if (won) {
 		// Jump in celebration!
@@ -26,10 +26,10 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		// Instead, we add/subtract the velocity, so if both are pressed, nothing happens
 
 		if (buttons & Button::DPAD_LEFT) {
-			velocity.x -= Constants::Player::MAX_SPEED;
+			velocity_x -= Constants::Player::MAX_SPEED;
 		}
 		if (buttons & Button::DPAD_RIGHT) {
-			velocity.x += Constants::Player::MAX_SPEED;
+			velocity_x += Constants::Player::MAX_SPEED;
 		}
 
 		// Handle climbing
@@ -69,11 +69,12 @@ void PlayerNinja::handle_scoring(Constants::LevelData& level_data, uint8_t x, ui
 
 	// Check the tile is a coin or gem
 	if (tile_id == Constants::Sprites::COIN || tile_id == Constants::Sprites::GEM) {
-		Vec2 tile_position = Vec2(x, y) * Constants::SPRITE_SIZE;
+		float tile_x = x * Constants::SPRITE_SIZE;
+		float tile_y = y * Constants::SPRITE_SIZE;
 
 		// Is the ninja colliding with the tile?
 		// Note: we use a smaller object_size since the coins and gems are smaller, which also means we have to offset the tile_position
-		if (check_colliding(tile_position + Vec2(1.0f, 1.0f) * Constants::Collectable::BORDER, Constants::Collectable::SIZE)) {
+		if (check_colliding(tile_x + Constants::Collectable::BORDER, tile_y + Constants::Collectable::BORDER, Constants::Collectable::SIZE)) {
 
 			// Add the correct amount of score if it's a coin or gem tile
 			if (tile_id == Constants::Sprites::COIN) {

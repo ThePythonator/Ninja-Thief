@@ -5,7 +5,7 @@
 class EnemyNinja : public Ninja {
 public:
 	EnemyNinja();
-	EnemyNinja(Vec2 position);
+	EnemyNinja(float x, float y);
 
 	void update(float dt, Constants::LevelData& level_data);
 

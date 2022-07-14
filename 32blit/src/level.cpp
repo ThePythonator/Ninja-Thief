@@ -16,15 +16,16 @@ Level::Level(uint8_t _level_number) {
 		for (uint8_t x = 0; x < Constants::GAME_WIDTH_TILES; x++) {
 			uint8_t spawn_id = level_data.entity_spawns[y * Constants::GAME_WIDTH_TILES + x];
 
-			Vec2 position = Vec2(x, y) * Constants::SPRITE_SIZE;
+			float position_x = x * Constants::SPRITE_SIZE;
+			float position_y = y * Constants::SPRITE_SIZE;
 
 			switch (spawn_id) {
 			case Constants::Sprites::PLAYER_IDLE:
-				player = PlayerNinja(position);
+				player = PlayerNinja(position_x, position_y);
 				break;
 
 			case Constants::Sprites::PLAYER_IDLE + Constants::Sprites::PLAYER_OFFSET:
-				enemies.push_back(EnemyNinja(position));
+				enemies.push_back(EnemyNinja(position_x, position_y));
 				break;
 
 			default:
@@ -61,7 +62,7 @@ void Level::update(float dt) {
 			}
 		}
 
-		if (player.get_position().y > Constants::GAME_HEIGHT) {
+		if (player.get_y() > Constants::GAME_HEIGHT) {
 			// Player has gone off the bottom of the screen, so they're dead
 			level_state = LevelState::FAILED;
 		}
@@ -73,7 +74,7 @@ void Level::update(float dt) {
 		// Update player
 		player.update(dt, level_data);
 
-		if (player.get_position().y > Constants::GAME_HEIGHT) {
+		if (player.get_y() > Constants::GAME_HEIGHT) {
 			// Player has gone off the bottom of the screen
 			level_state = LevelState::FAILED;
 		}
@@ -85,7 +86,7 @@ void Level::update(float dt) {
 		// Update player
 		player.update(dt, level_data);
 
-		if (player.finished_celebrating() || player.get_position().y > Constants::GAME_HEIGHT) {
+		if (player.finished_celebrating() || player.get_y() > Constants::GAME_HEIGHT) {
 			// Player has finished doing victory jumps, or has fallen off the screen
 			level_state = LevelState::COMPLETE;
 		}
@@ -149,7 +150,7 @@ void Level::render_tiles(const uint8_t* tile_ids) {
 
 			if (tile_id != Constants::Sprites::BLANK_TILE) {
 				// We need to offset the tiles since the 32blit version has borders on the screen
-				screen.sprite(tile_id, Point(x, y) * Constants::SPRITE_SIZE + Constants::GAME_OFFSET);
+				screen.sprite(tile_id, Point(x * Constants::SPRITE_SIZE + Constants::GAME_OFFSET_X, y * Constants::SPRITE_SIZE + Constants::GAME_OFFSET_Y));
 			}
 		}
 	}
@@ -160,7 +161,7 @@ void Level::render_border() {
 	for (uint8_t y = 0; y < Constants::SCREEN_HEIGHT; y += Constants::SPRITE_SIZE) {
 		// Left border:
 		uint8_t x = 0;
-		while (x < Constants::GAME_OFFSET.x - Constants::SPRITE_SIZE) {
+		while (x < Constants::GAME_OFFSET_X - Constants::SPRITE_SIZE) {
 			screen.sprite(Constants::Sprites::BORDER_FULL, Point(x, y));
 			x += Constants::SPRITE_SIZE;
 		}
@@ -168,7 +169,7 @@ void Level::render_border() {
 
 		// Right border:
 		x = Constants::SCREEN_WIDTH;
-		while (x > Constants::SCREEN_WIDTH - Constants::GAME_OFFSET.x) {
+		while (x > Constants::SCREEN_WIDTH - Constants::GAME_OFFSET_X) {
 			screen.sprite(Constants::Sprites::BORDER_FULL, Point(x, y));
 			x -= Constants::SPRITE_SIZE;
 		}

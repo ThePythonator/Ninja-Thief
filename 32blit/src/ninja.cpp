@@ -4,7 +4,7 @@ Ninja::Ninja() : colour(Colour::BLUE) {
 	
 }
 
-Ninja::Ninja(Colour _colour, Vec2 _position) : colour(_colour), position(_position) {
+Ninja::Ninja(Colour _colour, float x, float y) : colour(_colour), position_x(x), position_y(y) {
 
 }
 
@@ -14,18 +14,19 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 
 	// Apply gravity, only if ninja isn't climbing a ladder (or if ninja is dead)
 	if (climbing_state == ClimbingState::NONE || dead) {
-		velocity.y += Constants::Environment::GRAVITY_ACCELERATION * dt;
+		velocity_y += Constants::Environment::GRAVITY_ACCELERATION * dt;
 	}
 
 	// Update position from velocity
-	position += velocity * dt;
+	position_x += velocity_x * dt;
+	position_y += velocity_y * dt;
 
 	// Don't allow ninja to go off the sides
-	if (position.x < -Constants::Ninja::BORDER) {
-		position.x = -Constants::Ninja::BORDER;
+	if (position_x < -Constants::Ninja::BORDER) {
+		position_x = -Constants::Ninja::BORDER;
 	}
-	else if (position.x > Constants::GAME_WIDTH - Constants::SPRITE_SIZE + Constants::Ninja::BORDER) {
-		position.x = Constants::GAME_WIDTH - Constants::SPRITE_SIZE + Constants::Ninja::BORDER;
+	else if (position_x > Constants::GAME_WIDTH - Constants::SPRITE_SIZE + Constants::Ninja::BORDER) {
+		position_x = Constants::GAME_WIDTH - Constants::SPRITE_SIZE + Constants::Ninja::BORDER;
 	}
 
 	// Detect and resolve any collisions with platforms, ladders, coins etc
@@ -35,10 +36,10 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 
 
 	// Update direction the ninja is facing
-	if (velocity.x < 0.0f) {
+	if (velocity_x < 0.0f) {
 		facing_direction = HorizontalDirection::LEFT;
 	}
-	else if (velocity.x > 0.0f) {
+	else if (velocity_x > 0.0f) {
 		facing_direction = HorizontalDirection::RIGHT;
 	}
 }
@@ -66,27 +67,32 @@ void Ninja::render() {
 	}
 
 
-	screen.sprite(index, Point(std::round(position.x), std::round(position.y)) + Constants::GAME_OFFSET, transform);
+	screen.sprite(index, Point(std::round(position_x) + Constants::GAME_OFFSET_X, std::round(position_y) + Constants::GAME_OFFSET_Y), transform);
 }
 
-bool Ninja::check_colliding(Vec2 object_position, uint8_t object_size) {
-	return (position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > object_position.x) &&
-		(position.x + Constants::Ninja::BORDER < object_position.x + object_size) &&
-		(position.y + Constants::SPRITE_SIZE > object_position.y) &&
-		(position.y < object_position.y + object_size);
+bool Ninja::check_colliding(float object_x, float object_y, uint8_t object_size) {
+	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > object_x) &&
+		(position_x + Constants::Ninja::BORDER < object_x + object_size) &&
+		(position_y + Constants::SPRITE_SIZE > object_y) &&
+		(position_y < object_y + object_size);
 }
 
 bool Ninja::check_colliding(Ninja& ninja) {
-	Vec2 ninja_position = ninja.get_position();
+	float ninja_x = ninja.get_x();
+	float ninja_y = ninja.get_y();
 
-	return (position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > ninja_position.x + Constants::Ninja::BORDER) &&
-		(position.x + Constants::Ninja::BORDER < ninja_position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER) &&
-		(position.y + Constants::SPRITE_SIZE > ninja_position.y) &&
-		(position.y < ninja_position.y + Constants::SPRITE_SIZE);
+	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > ninja_x + Constants::Ninja::BORDER) &&
+		(position_x + Constants::Ninja::BORDER < ninja_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER) &&
+		(position_y + Constants::SPRITE_SIZE > ninja_y) &&
+		(position_y < ninja_y + Constants::SPRITE_SIZE);
 }
 
-Vec2 Ninja::get_position() {
-	return position;
+float Ninja::get_x() {
+	return position_x;
+}
+
+float Ninja::get_y() {
+	return position_y;
 }
 
 void Ninja::handle_collisions(Constants::LevelData& level_data) {
@@ -96,8 +102,8 @@ void Ninja::handle_collisions(Constants::LevelData& level_data) {
 	// Handle collision detection and resolution:
 	// Get position of ninja in "grid" of tiles
 	// Note: we're relying on converting to integers to trucate and hence round down
-	uint8_t x = position.x / Constants::SPRITE_SIZE;
-	uint8_t y = position.y / Constants::SPRITE_SIZE;
+	uint8_t x = position_x / Constants::SPRITE_SIZE;
+	uint8_t y = position_y / Constants::SPRITE_SIZE;
 
 	// Check the four tiles which the ninja might be colliding with (the top left tile is marked by the x and y previously calculated)
 	// Note: it's possible the ninja is near the edge of the screen and you could end up checking tiles which don't exist (off the side of the screen)
@@ -135,23 +141,24 @@ void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_
 
 	// Check the tile actually exists
 	if (tile_id != Constants::Sprites::BLANK_TILE) {
-		Vec2 tile_position = Vec2(x, y) * Constants::SPRITE_SIZE;
+		float tile_x = x * Constants::SPRITE_SIZE;
+		float tile_y = y * Constants::SPRITE_SIZE;
 
 		// Is the ninja colliding with the tile?
-		if (check_colliding(tile_position, Constants::SPRITE_SIZE)) {
+		if (check_colliding(tile_x, tile_y, Constants::SPRITE_SIZE)) {
 
 			// Does this platform have a ladder in front of it?
 			if (level_data.extras[y * Constants::GAME_WIDTH_TILES + x] == Constants::Sprites::LADDER) {
 				if (climbing_state == ClimbingState::NONE) {
 					// The ninja is not on a ladder
 
-					if (velocity.y > 0.0f) {
+					if (velocity_y > 0.0f) {
 						// The ninja can only collide with the platform if they are falling
 
-						if (position.y + Constants::SPRITE_SIZE - tile_position.y < Constants::ONE_WAY_PLATFORM_TOLERANCE) {
+						if (position_y + Constants::SPRITE_SIZE - tile_y < Constants::ONE_WAY_PLATFORM_TOLERANCE) {
 							// Set the ninja's position so that it rests on top of the platform, and reset it's vertical velocity to zero
-							position.y = tile_position.y - Constants::SPRITE_SIZE;
-							velocity.y = 0.0f;
+							position_y = tile_y - Constants::SPRITE_SIZE;
+							velocity_y = 0.0f;
 
 							// Allow the ninja to jump again
 							can_jump = true;
@@ -168,28 +175,28 @@ void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_
 				float least_intersection = Constants::SPRITE_SIZE;
 
 				// Left side of tile
-				float intersection = position.x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER - tile_position.x;
+				float intersection = position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER - tile_x;
 				if (intersection < least_intersection) {
 					direction = 0;
 					least_intersection = intersection;
 				}
 
 				// Top side of tile
-				intersection = position.y + Constants::SPRITE_SIZE - tile_position.y;
+				intersection = position_y + Constants::SPRITE_SIZE - tile_y;
 				if (intersection < least_intersection) {
 					direction = 1;
 					least_intersection = intersection;
 				}
 
 				// Right side of tile
-				intersection = tile_position.x + Constants::SPRITE_SIZE - position.x - Constants::Ninja::BORDER;
+				intersection = tile_x + Constants::SPRITE_SIZE - position_x - Constants::Ninja::BORDER;
 				if (intersection < least_intersection) {
 					direction = 2;
 					least_intersection = intersection;
 				}
 
 				// Bottom side of tile
-				intersection = tile_position.y + Constants::SPRITE_SIZE - position.y;
+				intersection = tile_y + Constants::SPRITE_SIZE - position_y;
 				if (intersection < least_intersection) {
 					direction = 3;
 					least_intersection = intersection;
@@ -199,14 +206,14 @@ void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_
 				switch (direction) {
 				case 0:
 					// Hit the left side of a platform
-					position.x -= least_intersection;
-					velocity.x = 0.0f;
+					position_x -= least_intersection;
+					velocity_x = 0.0f;
 					break;
 
 				case 1:
 					// Landed on top of a platform
-					position.y -= least_intersection;
-					velocity.y = 0.0f;
+					position_y -= least_intersection;
+					velocity_y = 0.0f;
 
 					// Allow the ninja to jump again
 					can_jump = true;
@@ -217,14 +224,14 @@ void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_
 
 				case 2:
 					// Hit the right side of a platform
-					position.x += least_intersection;
-					velocity.x = 0.0f;
+					position_x += least_intersection;
+					velocity_x = 0.0f;
 					break;
 
 				case 3:
 					// Hit the underside of a platform
-					position.y += least_intersection;
-					velocity.y = 0.0f;
+					position_y += least_intersection;
+					velocity_y = 0.0f;
 					break;
 
 				default:
@@ -241,32 +248,34 @@ void Ninja::handle_ladders(Constants::LevelData& level_data, uint8_t x, uint8_t 
 
 	// Check if the tile is a ladder
 	if (tile_id == Constants::Sprites::LADDER) {
-		Vec2 tile_position = Vec2(x, y) * Constants::SPRITE_SIZE;
+		float tile_x = x * Constants::SPRITE_SIZE;
+		float tile_y = y * Constants::SPRITE_SIZE;
 
 		// Now check if ninja is colliding with the tile
-		if (check_colliding(tile_position, Constants::SPRITE_SIZE)) {
+		if (check_colliding(tile_x, tile_y, Constants::SPRITE_SIZE)) {
 			
 			// Check that ninja is sufficiently close to ladder:
-			if (std::abs(tile_position.x - position.x) < Constants::Ninja::WIDTH / 2) {
+			if (std::abs(tile_x - position_x) < Constants::Ninja::WIDTH / 2) {
 				can_climb = true;
 
 				// Check if ninja should be climbing or idling on ladder
 				if (climbing_state != ClimbingState::NONE) {
 					// Lock position to ladder
-					position.x = tile_position.x;
+					position_x = tile_x;
 
 					// Set velocity to 0
-					velocity = Vec2();
+					velocity_x = 0.0f;
+					velocity_y = 0.0f;
 
 					// Get climbing speed, depending on whether ninja is the player or an enemy
 					float climbing_speed = colour == Colour::BLUE ? Constants::Player::CLIMBING_SPEED : Constants::Enemy::CLIMBING_SPEED;
 
 					// If player is actually climbing the ladder, set vertical velocity to be in the right direction
 					if (climbing_state == ClimbingState::UP) {
-						velocity.y = -climbing_speed;
+						velocity_y = -climbing_speed;
 					}
 					else if (climbing_state == ClimbingState::DOWN) {
-						velocity.y = climbing_speed;
+						velocity_y = climbing_speed;
 					}
 				}
 			}
@@ -279,7 +288,7 @@ void Ninja::handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t 
 }
 
 void Ninja::jump(float jump_speed) {
-	velocity.y = -jump_speed;
+	velocity_y = -jump_speed;
 	can_jump = false;
 
 	// Reset climbing state when player jumps
