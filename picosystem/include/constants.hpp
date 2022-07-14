@@ -5,7 +5,7 @@
 
 namespace Constants {
 	// Screen size in pixels
-	const uint8_t SCREEN_WIDTH = 160;
+	const uint8_t SCREEN_WIDTH = 120;
 	const uint8_t SCREEN_HEIGHT = 120;
 
 	// Actual game area in pixels
@@ -14,6 +14,10 @@ namespace Constants {
 
 	// Each sprite on the spritesheet is 8x8 pixels
 	const uint8_t SPRITE_SIZE = 8;
+
+	// Spritesheet size in pixels
+	const uint8_t SPRITESHEET_WIDTH = SPRITE_SIZE * 8;
+	const uint8_t SPRITESHEET_HEIGHT = SPRITE_SIZE * 6;
 
 	// Game area size in tiles
 	const uint8_t GAME_WIDTH_TILES = GAME_WIDTH / SPRITE_SIZE;
@@ -39,10 +43,6 @@ namespace Constants {
 		const uint8_t PLAYER_WALKING_2 = 41;
 		const uint8_t PLAYER_JUMPING_UP = 42;
 		const uint8_t PLAYER_JUMPING_DOWN = 43;
-
-		const uint8_t BORDER_LEFT = 10;
-		const uint8_t BORDER_FULL = 9;
-		const uint8_t BORDER_RIGHT = 8;
 
 		const uint8_t LADDER = 11;
 
