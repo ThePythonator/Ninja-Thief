@@ -122,15 +122,15 @@ void Level::render() {
 	// Render player
 	player.render();
 
+	// Render UI text
+	screen.pen = Pen(0xff, 0xff, 0xff);
 
 	// Render level number
 	std::string level_string = "Level: " + std::to_string(level_number + 1);
-	screen.pen = Pen(0xFF, 0xFF, 0xFF);
 	screen.text(level_string, minimal_font, Point(2, 2), true, TextAlign::top_left);
 
 	// Render score
 	std::string score_string = "Score: " + std::to_string(player.get_score());
-	screen.pen = Pen(0xFF, 0xFF, 0xFF);
 	screen.text(score_string, minimal_font, Point(Constants::SCREEN_WIDTH - 2, 2), true, TextAlign::top_right);
 }
 

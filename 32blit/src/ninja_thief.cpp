@@ -31,7 +31,7 @@ void update(uint32_t time) {
     // Calculate change in time (in seconds) since last frame
     float dt = (time - last_time) / 1000.0f;
 
-    // Cap dt (for when the game is paused)
+    // Cap dt (in case the game is paused/lagging)
     if (dt > 0.05f) {
         dt = 0.05f;
     }

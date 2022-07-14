@@ -1,6 +1,10 @@
 #pragma once
 
+#include "32blit.hpp"
+
 #include "ninja.hpp"
+
+using namespace blit;
 
 class PlayerNinja : public Ninja {
 public:
