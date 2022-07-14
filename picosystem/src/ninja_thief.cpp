@@ -33,9 +33,9 @@ void update(uint32_t tick) {
     float dt = (time() - last_time) / 1000.0f;
 
     // Cap dt (in case the game is paused/lagging)
-    /*if (dt > 0.05f) {
-        dt = 0.05f;
-    }*/
+    if (dt > 0.1f) {
+        dt = 0.1f;
+    }
 
     level.update(dt);
 
