@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "picosystem.hpp"
 
 #include "utilities.hpp"
