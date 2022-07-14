@@ -100,9 +100,9 @@ void Level::update(float dt) {
 
 void Level::render() {
 	// Render background pipes
-	/*alpha(0x80);
+	alpha(0x80);
 	render_tiles(level_data.pipes);
-	alpha();*/
+	alpha();
 
 
 	// Render platforms
