@@ -15,6 +15,10 @@ namespace Constants {
 	// Each sprite on the spritesheet is 8x8 pixels
 	const uint8_t SPRITE_SIZE = 8;
 
+	// Spritesheet size in pixels
+	const uint8_t SPRITESHEET_WIDTH = SPRITE_SIZE * 8;
+	const uint8_t SPRITESHEET_HEIGHT = SPRITE_SIZE * 6;
+
 	// Game area size in tiles
 	const uint8_t GAME_WIDTH_TILES = GAME_WIDTH / SPRITE_SIZE;
 	const uint8_t GAME_HEIGHT_TILES = GAME_HEIGHT / SPRITE_SIZE;
