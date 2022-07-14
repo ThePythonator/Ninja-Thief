@@ -67,7 +67,7 @@ void Ninja::render() {
 	}
 
 
-	sprite(index, std::round(position_x) + Constants::GAME_OFFSET_X, std::round(position_y) + Constants::GAME_OFFSET_Y, transform_flags);
+	sprite(index, std::round(position_x) + Constants::GAME_OFFSET_X, std::round(position_y) + Constants::GAME_OFFSET_Y, 1, 1, Constants::SPRITE_SIZE, Constants::SPRITE_SIZE, transform_flags);
 }
 
 bool Ninja::check_colliding(float object_x, float object_y, uint8_t object_size) {
