@@ -84,7 +84,7 @@ class Level:
 
     def render(self):
         # Render background pipes
-        alpha(0x80)
+        alpha(0x8)
         self.render_tiles(self.level_data.pipes)
         alpha()
 
@@ -102,7 +102,7 @@ class Level:
         self.player.render()
 
         # Render UI text
-        pen(0xff, 0xff, 0xff)
+        pen(0xf, 0xf, 0xf)
 
         # Render level number
         level_string = "Level: " + str(self.level_number + 1)
