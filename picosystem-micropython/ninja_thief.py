@@ -23,7 +23,7 @@ spritesheet(sprites)
 
 # Load the background
 background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT)
-open("background-picosystem.png", "rb").readinto(background)
+open("background_picosystem.png", "rb").readinto(background)
 
 # Load the first level
 level = Level(0)
