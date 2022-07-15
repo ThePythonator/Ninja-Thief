@@ -125,8 +125,8 @@ class Ninja:
         # Handle collision detection and resolution:
         # Get position of ninja in "grid" of tiles
         # Note: we're relying on converting to integers to trucate and hence round down
-        x = self.position_x / Constants.SPRITE_SIZE
-        y = self.position_y / Constants.SPRITE_SIZE
+        x = int(self.position_x / Constants.SPRITE_SIZE)
+        y = int(self.position_y / Constants.SPRITE_SIZE)
 
         # Check the four tiles which the ninja might be colliding with (the top left tile is marked by the x and y previously calculated)
         # Note: it's possible the ninja is near the edge of the screen and you could end up checking tiles which don't exist (off the side of the screen)

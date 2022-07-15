@@ -1,5 +1,6 @@
 from level import Level
 import constants as Constants
+
 from time import time
 
 # Normally, global variables should be avoided where possible, but for simpicity they will sometimes be used in this project
@@ -22,7 +23,7 @@ spritesheet(sprites)
 
 # Load the background
 background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT)
-open("background.png", "rb").readinto(background)
+open("background-picosystem.png", "rb").readinto(background)
 
 # Load the first level
 level = Level(0)
