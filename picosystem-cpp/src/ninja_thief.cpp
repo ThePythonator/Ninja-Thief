@@ -13,6 +13,9 @@ float last_time = 0.0f;
 
 // Setup the game
 void init() {
+    // Set backlight to max
+    backlight(100);
+
     // Set blend mode
     blend(ALPHA);
 
