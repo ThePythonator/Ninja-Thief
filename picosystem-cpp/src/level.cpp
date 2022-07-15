@@ -100,7 +100,7 @@ void Level::update(float dt) {
 
 void Level::render() {
 	// Render background pipes
-	alpha(0x80);
+	alpha(0xf);
 	render_tiles(level_data.pipes);
 	alpha();
 
@@ -120,7 +120,7 @@ void Level::render() {
 	player.render();
 
 	// Render UI text
-	pen(0xff, 0xff, 0xff);
+	pen(0xf, 0xf, 0xf);
 
 	// Render level number
 	std::string level_string = "Level: " + std::to_string(level_number + 1);
