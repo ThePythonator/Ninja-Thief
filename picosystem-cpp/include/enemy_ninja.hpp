@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ninja.hpp"
+#include "utilities.hpp"
 
 class EnemyNinja : public Ninja {
 public:

@@ -3,8 +3,6 @@
 #include <cmath>
 
 #include "picosystem.hpp"
-
-#include "utilities.hpp"
 #include "constants.hpp"
 
 using namespace picosystem;
