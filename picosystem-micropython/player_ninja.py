@@ -43,22 +43,22 @@ class PlayerNinja(Ninja):
 
                 if up != down:
                     # Only one of up and down are selected
-                    self.climbing_state = ClimbingState.UP if up else ClimbingState.DOWN
+                    self.climbing_state = Ninja.ClimbingState.UP if up else Ninja.ClimbingState.DOWN
                 
-                elif self.climbing_state != ClimbingState.NONE:
+                elif self.climbing_state != Ninja.ClimbingState.NONE:
                     # Player has already been climbing the ladder, and either none or both of up and down are pressed
-                    self.climbing_state = ClimbingState.IDLE
+                    self.climbing_state = Ninja.ClimbingState.IDLE
 
 
             # Handle jumping
             if pressed(A):
                 if self.can_jump:
                     # Player is on platform so is allowed to jump
-                    self.jump(Constants.Player.JUMP_SPEED if self.climbing_state == ClimbingState.NONE else Constants.Player.CLIMBING_JUMP_SPEED)
+                    self.jump(Constants.Player.JUMP_SPEED if self.climbing_state == Ninja.ClimbingState.NONE else Constants.Player.CLIMBING_JUMP_SPEED)
         
 
         # Call parent update method
-        Ninja.update(dt, level_data)
+        super().update(dt, level_data)
 
 
     def handle_scoring(self, level_data, x, y):
@@ -75,7 +75,7 @@ class PlayerNinja(Ninja):
 
             # Is the ninja colliding with the tile?
             # Note: we use a smaller object_size since the coins and gems are smaller, which also means we have to offset the tile_position
-            if self.check_colliding(tile_x + Constants.Collectable.BORDER, tile_y + Constants.Collectable.BORDER, Constants.Collectable.SIZE):
+            if self.check_object_colliding(tile_x + Constants.Collectable.BORDER, tile_y + Constants.Collectable.BORDER, Constants.Collectable.SIZE):
 
                 # Add the correct amount of score if it's a coin or gem tile
                 if tile_id == Constants.Sprites.COIN:
@@ -97,9 +97,9 @@ class PlayerNinja(Ninja):
 
 
     def set_dead(self):
-        self.dead = true
+        self.dead = True
         self.jump(Constants.Player.DEATH_JUMP_SPEED)
 
 
     def set_won(self):
-        self.won = true
+        self.won = True

@@ -18,4 +18,4 @@ def tile_at_position(tile_array, x, y):
 	return tile_array[grid_y * Constants.GAME_WIDTH_TILES + grid_x]
 
 def random_bool(probability):
-    return random() < probability
+	return random() < probability

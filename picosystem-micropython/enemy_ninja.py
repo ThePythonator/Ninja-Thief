@@ -1,7 +1,7 @@
 from random import choice
 
 from ninja import Ninja
-import utilities
+from utilities import random_bool, tile_at_position
 import constants as Constants
 
 class EnemyNinja(Ninja):
@@ -27,8 +27,8 @@ class EnemyNinja(Ninja):
             self.velocity_x = Constants.Enemy.MAX_SPEED * self.current_direction
 
             if self.can_climb and self.climb_next_ladder:
-                can_go_up = self.ladder_above_or_below(level_data, VerticalDirection.UP)
-                can_go_down = self.ladder_above_or_below(level_data, VerticalDirection.DOWN)
+                can_go_up = self.ladder_above_or_below(level_data, Ninja.VerticalDirection.UP)
+                can_go_down = self.ladder_above_or_below(level_data, Ninja.VerticalDirection.DOWN)
 
                 if can_go_up and can_go_down:
                     self.climbing_state = choice([Ninja.ClimbingState.UP, Ninja.ClimbingState.DOWN])
@@ -52,7 +52,7 @@ class EnemyNinja(Ninja):
                 self.climb_next_ladder = random_bool(Constants.Enemy.CLIMB_NEXT_LADDER_CHANCE)
 
 
-        Ninja.update(dt, level_data)
+        super().update(dt, level_data)
 
         # If we're no longer in a climbing state, switch back to patrolling
         if self.climbing_state == Ninja.ClimbingState.NONE:

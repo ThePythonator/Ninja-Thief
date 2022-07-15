@@ -54,11 +54,11 @@ class Ninja:
         self.position_y += self.velocity_y * dt
 
         # Don't allow ninja to go off the sides
-        if self.position_x < -Constants.BORDER:
-            self.position_x = -Constants.BORDER
+        if self.position_x < -Constants.Ninja.BORDER:
+            self.position_x = -Constants.Ninja.BORDER
         
-        elif self.position_x > Constants.GAME_WIDTH - Constants.SPRITE_SIZE + Constants.BORDER:
-            self.position_x = Constants.GAME_WIDTH - Constants.SPRITE_SIZE + Constants.BORDER
+        elif self.position_x > Constants.GAME_WIDTH - Constants.SPRITE_SIZE + Constants.Ninja.BORDER:
+            self.position_x = Constants.GAME_WIDTH - Constants.SPRITE_SIZE + Constants.Ninja.BORDER
         
 
         # Detect and resolve any collisions with platforms, ladders, coins etc
@@ -98,16 +98,16 @@ class Ninja:
         sprite(index, round(self.position_x) + Constants.GAME_OFFSET_X, round(self.position_y) + Constants.GAME_OFFSET_Y, 1, 1, Constants.SPRITE_SIZE, Constants.SPRITE_SIZE, transform_flags)
     
 
-    def check_colliding(self, object_x, object_y, object_size):
-        return self.position_x + Constants.SPRITE_SIZE - Constants.BORDER > object_x and self.position_x + Constants.BORDER < object_x + object_size and \
+    def check_object_colliding(self, object_x, object_y, object_size):
+        return self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > object_x and self.position_x + Constants.Ninja.BORDER < object_x + object_size and \
             self.position_y + Constants.SPRITE_SIZE > object_y and self.position_y < object_y + object_size
     
 
-    def check_colliding(self, ninja):
-        ninja_x = get_x()
-        ninja_y = get_y()
+    def check_ninja_colliding(self, ninja):
+        ninja_x = ninja.get_x()
+        ninja_y = ninja.get_y()
 
-        return self.position_x + Constants.SPRITE_SIZE - Constants.BORDER > ninja_x + Constants.BORDER and self.position_x + Constants.BORDER < ninja_x + Constants.SPRITE_SIZE - Constants.BORDER and \
+        return self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > ninja_x + Constants.Ninja.BORDER and self.position_x + Constants.Ninja.BORDER < ninja_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER and \
             self.position_y + Constants.SPRITE_SIZE > ninja_y and self.position_y < ninja_y + Constants.SPRITE_SIZE
 
     
@@ -137,20 +137,20 @@ class Ninja:
                 new_y = y + y_offset
 
                 # Handle platforms
-                handle_platforms(level_data, new_x, new_y)
+                self.handle_platforms(level_data, new_x, new_y)
 
                 # Handle ladders
-                handle_ladders(level_data, new_x, new_y)
+                self.handle_ladders(level_data, new_x, new_y)
 
                 # Handle scoring
-                handle_scoring(level_data, new_x, new_y)
+                self.handle_scoring(level_data, new_x, new_y)
 
         # If ninja can no longer climb, reset their climbing state
         if not self.can_climb:
             self.climbing_state = Ninja.ClimbingState.NONE
         
         # If player is on a ladder, they can jump
-        if climbing_state != Ninja.ClimbingState.NONE:
+        if self.climbing_state != Ninja.ClimbingState.NONE:
             self.can_jump = True
 
 
@@ -164,7 +164,7 @@ class Ninja:
             tile_y = y * Constants.SPRITE_SIZE
 
             # Is the ninja colliding with the tile?
-            if check_colliding(tile_x, tile_y, Constants.SPRITE_SIZE):
+            if self.check_object_colliding(tile_x, tile_y, Constants.SPRITE_SIZE):
 
                 # Does this platform have a ladder in front of it?
                 if level_data.extras[y * Constants.GAME_WIDTH_TILES + x] == Constants.Sprites.LADDER:
@@ -191,7 +191,7 @@ class Ninja:
                     least_intersection = Constants.SPRITE_SIZE
 
                     # Left side of tile
-                    intersection = self.position_x + Constants.SPRITE_SIZE - Constants.BORDER - tile_x
+                    intersection = self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER - tile_x
                     if intersection < least_intersection:
                         direction = 0
                         least_intersection = intersection
@@ -205,7 +205,7 @@ class Ninja:
                     
 
                     # Right side of tile
-                    intersection = tile_x + Constants.SPRITE_SIZE - self.position_x - Constants.BORDER
+                    intersection = tile_x + Constants.SPRITE_SIZE - self.position_x - Constants.Ninja.BORDER
                     if intersection < least_intersection:
                         direction = 2
                         least_intersection = intersection
@@ -256,10 +256,10 @@ class Ninja:
             tile_y = y * Constants.SPRITE_SIZE
 
             # Now check if ninja is colliding with the tile
-            if check_colliding(tile_x, tile_y, Constants.SPRITE_SIZE):
+            if self.check_object_colliding(tile_x, tile_y, Constants.SPRITE_SIZE):
                 
                 # Check that ninja is sufficiently close to ladder:
-                if abs(tile_x - self.position_x) < Constants.WIDTH / 2:
+                if abs(tile_x - self.position_x) < Constants.Ninja.WIDTH / 2:
                     self.can_climb = True
 
                     # Check if ninja should be climbing or idling on ladder

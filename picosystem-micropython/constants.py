@@ -9,6 +9,10 @@ GAME_HEIGHT = 120
 # Each sprite on the spritesheet is 8x8 pixels
 SPRITE_SIZE = 8
 
+# Spritesheet size in pixels
+SPRITESHEET_WIDTH = SPRITE_SIZE * 8
+SPRITESHEET_HEIGHT = SPRITE_SIZE * 6
+
 # Game area size in tiles
 GAME_WIDTH_TILES = int(GAME_WIDTH / SPRITE_SIZE)
 GAME_HEIGHT_TILES = int(GAME_HEIGHT / SPRITE_SIZE)

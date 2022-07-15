@@ -12,17 +12,17 @@ current_level = 0
 last_time = 0
 
 # Set blend mode
-# blend(ALPHA)
+blend(ALPHA)
 
 # Load the spritesheet
-# sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT, asset_sprites)
-# open("spritesheet.png", "rb").readinto(sprites)
+sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT)
+open("spritesheet.png", "rb").readinto(sprites)
 
-# spritesheet(sprites)
+spritesheet(sprites)
 
 # Load the background
-# background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, asset_background)
-# open("background.png", "rb").readinto(background)
+background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT)
+open("background.png", "rb").readinto(background)
 
 # Load the first level
 level = Level(0)
@@ -30,6 +30,8 @@ level = Level(0)
 
 # Update the game
 def update(tick):
+    global last_time, level, current_level
+
     # Calculate change in time (in seconds) since last frame
     dt = (time() - last_time)
     last_time = time()

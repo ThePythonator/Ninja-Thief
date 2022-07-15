@@ -38,13 +38,13 @@ class Level:
 
 
     def update(self, dt):
-        if self.level_state == LevelState.PLAYING:
+        if self.level_state == Level.LevelState.PLAYING:
             # Update player
             self.player.update(dt, self.level_data)
 
             if self.coins_left() == 0:
                 # No more coins left, so the player has won!
-                self.level_state = LevelState.PLAYER_WON
+                self.level_state = Level.LevelState.PLAYER_WON
 
                 self.player.set_won()
 
@@ -52,34 +52,34 @@ class Level:
             for enemy in self.enemies:
                 enemy.update(dt, self.level_data)
 
-                if self.player.check_colliding(enemy):
+                if self.player.check_ninja_colliding(enemy):
                     # Player is now dead, trigger "fall" animation, before restarting level
-                    self.level_state = LevelState.PLAYER_DEAD
+                    self.level_state = Level.LevelState.PLAYER_DEAD
 
                     self.player.set_dead()
             
 
             if self.player.get_y() > Constants.GAME_HEIGHT:
                 # Player has gone off the bottom of the screen, so they're dead
-                self.level_state = LevelState.FAILED
+                self.level_state = Level.LevelState.FAILED
             
 
-        elif self.level_state == LevelState.PLAYER_DEAD:
+        elif self.level_state == Level.LevelState.PLAYER_DEAD:
             # Update player
             self.player.update(dt, self.level_data)
 
             if self.player.get_y() > Constants.GAME_HEIGHT:
                 # Player has gone off the bottom of the screen
-                self.level_state = LevelState.FAILED
+                self.level_state = Level.LevelState.FAILED
 
 
-        elif self.level_state == LevelState.PLAYER_WON:
+        elif self.level_state == Level.LevelState.PLAYER_WON:
             # Update player
             self.player.update(dt, self.level_data)
 
             if self.player.finished_celebrating() or self.player.get_y() > Constants.GAME_HEIGHT:
                 # Player has finished doing victory jumps, or has fallen off the screen
-                self.level_state = LevelState.COMPLETE
+                self.level_state = Level.LevelState.COMPLETE
 
 
     def render(self):
@@ -119,11 +119,11 @@ class Level:
 
 
     def level_failed(self):
-        return self.level_state == LevelState.FAILED
+        return self.level_state == Level.LevelState.FAILED
 
 
     def level_complete(self):
-        return self.level_state == LevelState.COMPLETE
+        return self.level_state == Level.LevelState.COMPLETE
 
 
     def render_tiles(self, tile_ids):
