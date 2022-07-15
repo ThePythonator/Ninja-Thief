@@ -11,8 +11,8 @@ def tile_at_position(tile_array, x, y):
 		return Constants.Sprites.BLANK_TILE
 
 	# Get grid position of tile
-	grid_x = x / Constants.SPRITE_SIZE
-	grid_y = y / Constants.SPRITE_SIZE
+	grid_x = int(x // Constants.SPRITE_SIZE)
+	grid_y = int(y // Constants.SPRITE_SIZE)
 
 	# If we've not return yet, then it's safe to get the tile from the level data
 	return tile_array[grid_y * Constants.GAME_WIDTH_TILES + grid_x]

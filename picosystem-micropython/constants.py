@@ -14,12 +14,12 @@ SPRITESHEET_WIDTH = SPRITE_SIZE * 8
 SPRITESHEET_HEIGHT = SPRITE_SIZE * 6
 
 # Game area size in tiles
-GAME_WIDTH_TILES = int(GAME_WIDTH / SPRITE_SIZE)
-GAME_HEIGHT_TILES = int(GAME_HEIGHT / SPRITE_SIZE)
+GAME_WIDTH_TILES = GAME_WIDTH // SPRITE_SIZE
+GAME_HEIGHT_TILES = GAME_HEIGHT // SPRITE_SIZE
 
 # Offset of game area from top left corner
-GAME_OFFSET_X = (SCREEN_WIDTH - GAME_WIDTH) / 2
-GAME_OFFSET_Y = (SCREEN_HEIGHT - GAME_HEIGHT) / 2
+GAME_OFFSET_X = (SCREEN_WIDTH - GAME_WIDTH) // 2
+GAME_OFFSET_Y = (SCREEN_HEIGHT - GAME_HEIGHT) // 2
 
 # The number of pixels a ninja can intersect a one-way platform, while still being moved back to the top of the platform during collision resolution
 ONE_WAY_PLATFORM_TOLERANCE = 2
@@ -53,7 +53,7 @@ class Ninja:
     # The ninja sprites are smaller in width
     WIDTH = 4
     # Calculate the gap between the edge of the sprite and the edge of the ninja on each side
-    BORDER = (SPRITE_SIZE - WIDTH) / 2
+    BORDER = (SPRITE_SIZE - WIDTH) // 2
 
 
 # Player data such as max speed and acceleration
@@ -89,7 +89,7 @@ class Collectable:
     # The coin and gem sprites are smaller in size
     SIZE = 4
     # Calculate the gap between the edge of the sprite and the edge of the actual coin/gem
-    BORDER = (SPRITE_SIZE - SIZE) / 2
+    BORDER = (SPRITE_SIZE - SIZE) // 2
 
     COIN_SCORE = 2
     GEM_SCORE = 5

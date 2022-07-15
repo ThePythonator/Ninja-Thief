@@ -17,13 +17,13 @@ blend(ALPHA)
 
 # Load the spritesheet
 sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT)
-open("spritesheet.png", "rb").readinto(sprites)
+open("spritesheet.16bpp", "rb").readinto(sprites)
 
 spritesheet(sprites)
 
 # Load the background
 background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT)
-open("background_picosystem.png", "rb").readinto(background)
+open("background.16bpp", "rb").readinto(background)
 
 # Load the first level
 level = Level(0)
@@ -58,7 +58,7 @@ def update(tick):
 # Render the game (draw it to the display)
 def draw(tick):
     # Clear the screen
-    pen()
+    pen(0, 0, 0)
     clear()
 
     # Draw the background
