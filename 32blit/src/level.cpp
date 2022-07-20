@@ -1,5 +1,7 @@
 #include "level.hpp"
 
+using namespace blit;
+
 Level::Level() {
 
 }

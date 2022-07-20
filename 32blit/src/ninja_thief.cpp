@@ -1,5 +1,7 @@
 #include "ninja_thief.hpp"
 
+using namespace blit;
+
 // Normally, global variables should be avoided where possible, but for simplicity they will sometimes be used in this project
 
 // Declare background, level, current_level and last_time as global variables so that we can access them in the init, update, and render functions.

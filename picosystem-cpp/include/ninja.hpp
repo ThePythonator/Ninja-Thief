@@ -5,8 +5,6 @@
 #include "picosystem.hpp"
 #include "constants.hpp"
 
-using namespace picosystem;
-
 class Ninja {
 public:
 	enum class Colour {

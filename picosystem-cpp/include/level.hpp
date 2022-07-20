@@ -9,8 +9,6 @@
 #include "enemy_ninja.hpp"
 #include "constants.hpp"
 
-using namespace picosystem;
-
 class Level {
 public:
 	Level();

@@ -1,5 +1,7 @@
 #include "player_ninja.hpp"
 
+using namespace picosystem;
+
 PlayerNinja::PlayerNinja() {
 
 }

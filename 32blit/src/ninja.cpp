@@ -1,5 +1,7 @@
 #include "ninja.hpp"
 
+using namespace blit;
+
 Ninja::Ninja() : colour(Colour::BLUE) {
 	
 }

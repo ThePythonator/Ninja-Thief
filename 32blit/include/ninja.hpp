@@ -5,8 +5,6 @@
 #include "utilities.hpp"
 #include "constants.hpp"
 
-using namespace blit;
-
 class Ninja {
 public:
 	enum class Colour {

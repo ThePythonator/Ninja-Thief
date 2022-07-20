@@ -4,8 +4,6 @@
 
 #include "ninja.hpp"
 
-using namespace picosystem;
-
 class PlayerNinja : public Ninja {
 public:
 	PlayerNinja();

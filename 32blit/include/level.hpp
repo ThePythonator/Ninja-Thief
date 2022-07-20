@@ -9,8 +9,6 @@
 #include "enemy_ninja.hpp"
 #include "constants.hpp"
 
-using namespace blit;
-
 class Level {
 public:
 	Level();

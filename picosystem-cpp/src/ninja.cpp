@@ -1,5 +1,7 @@
 #include "ninja.hpp"
 
+using namespace picosystem;
+
 Ninja::Ninja() : colour(Colour::BLUE) {
 	
 }
