@@ -127,7 +127,7 @@ void Level::render() {
 
 	// Render level number
 	std::string level_string = "Level: " + std::to_string(level_number + 1);
-	screen.text(level_string, minimal_font, Point(2, 2), true, TextAlign::top_left);
+	screen.text(level_string, minimal_font, Point(2, 2));
 
 	// Render score
 	std::string score_string = "Score: " + std::to_string(player.get_score());

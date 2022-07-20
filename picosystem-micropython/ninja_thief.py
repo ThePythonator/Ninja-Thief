@@ -1,19 +1,14 @@
 from level import Level
 import constants as Constants
 
-from time import time
+from time import ticks_ms, ticks_diff
 
-# Normally, global variables should be avoided where possible, but for simpicity they will sometimes be used in this project
+# Normally, global variables should be avoided where possible, but for simplicity they will sometimes be used in this project
 
 # Setup the game
 
-current_level = 0
-
-# Used to calculate time since last frame
-last_time = 0
-
-# Set blend mode
-blend(ALPHA)
+# Set backlight to max
+backlight(100)
 
 # Load the spritesheet
 sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT)
@@ -28,18 +23,23 @@ open("background.16bpp", "rb").readinto(background)
 # Load the first level
 level = Level(0)
 
+current_level = 0
+
+# Used to calculate time since last frame
+last_time = 0
+
 
 # Update the game
 def update(tick):
     global last_time, level, current_level
 
     # Calculate change in time (in seconds) since last frame
-    dt = (time() - last_time)
-    last_time = time()
+    dt = ticks_diff(ticks_ms(), last_time) / 1000
+    last_time = ticks_ms()
 
     # Cap dt (in case the game is paused/lagging)
-    if dt > 0.05:
-        dt = 0.05
+    if dt > 0.04:
+        dt = 0.04
 
     level.update(dt)
 

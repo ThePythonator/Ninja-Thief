@@ -54,7 +54,7 @@ class PlayerNinja(Ninja):
             if pressed(A):
                 if self.can_jump:
                     # Player is on platform so is allowed to jump
-                    self.jump(Constants.Player.JUMP_SPEED if self.climbing_state == Ninja.ClimbingState.NONE else Constants.Player.CLIMBING_JUMP_SPEED)
+                    self.jump(Constants.Player.JUMP_SPEED)
         
 
         # Call parent update method

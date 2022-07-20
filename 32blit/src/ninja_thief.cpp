@@ -1,7 +1,8 @@
 #include "ninja_thief.hpp"
 
-// Declare background as a global variable so that we can access it in both the init and render functions.
-// Normally, global variables should be avoided where possible, but for simpicity they will sometimes be used in this project
+// Normally, global variables should be avoided where possible, but for simplicity they will sometimes be used in this project
+
+// Declare background, level, current_level and last_time as global variables so that we can access them in the init, update, and render functions.
 Surface* background = nullptr;
 
 Level level;

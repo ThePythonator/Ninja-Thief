@@ -14,7 +14,7 @@ class Level:
     def __init__(self, level_number):
         self.level_number = level_number
 
-        self.level_data = Constants.LEVELS[level_number]
+        self.level_data = Constants.LEVELS[level_number].copy()
 
         self.level_state = Level.LevelState.PLAYING
 

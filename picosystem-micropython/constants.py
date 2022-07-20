@@ -62,7 +62,6 @@ class Player:
     MAX_SPEED = 50
 
     JUMP_SPEED = 125
-    CLIMBING_JUMP_SPEED = 100
     DEATH_JUMP_SPEED = 100
     CELEBRATION_JUMP_SPEED = 75
 
@@ -118,6 +117,9 @@ class LevelData:
 
         # Background pipe data
         self.pipes = pipes
+
+    def copy(self):
+        return LevelData(self.platforms.copy(), self.extras.copy(), self.entity_spawns.copy(), self.pipes.copy())
 
 LEVELS = [
     # Level 0

@@ -130,20 +130,21 @@ class Ninja:
 
         # Check the four tiles which the ninja might be colliding with (the top left tile is marked by the x and y previously calculated)
         # Note: it's possible the ninja is near the edge of the screen and you could end up checking tiles which don't exist (off the side of the screen)
-        # Note: to adef this issue, we use the ternary operator to vary the maximum x and y offsets.
-        for y_offset in range(1 if y == Constants.GAME_HEIGHT_TILES else 2):
-            for x_offset in range(1 if x == Constants.GAME_WIDTH_TILES else 2):
-                new_x = x + x_offset
-                new_y = y + y_offset
+        # Note: to avoid this issue, we use the equivalent of the ternary operator to vary the maximum x and y offsets.
+        if x < Constants.GAME_WIDTH_TILES and y < Constants.GAME_HEIGHT_TILES and self.position_x >= -Constants.Ninja.BORDER and self.position_y >= 0:
+            for y_offset in range(1 if y == Constants.GAME_HEIGHT_TILES - 1 else 2):
+                for x_offset in range(1 if x == Constants.GAME_WIDTH_TILES - 1 else 2):
+                    new_x = x + x_offset
+                    new_y = y + y_offset
 
-                # Handle platforms
-                self.handle_platforms(level_data, new_x, new_y)
+                    # Handle platforms
+                    self.handle_platforms(level_data, new_x, new_y)
 
-                # Handle ladders
-                self.handle_ladders(level_data, new_x, new_y)
+                    # Handle ladders
+                    self.handle_ladders(level_data, new_x, new_y)
 
-                # Handle scoring
-                self.handle_scoring(level_data, new_x, new_y)
+                    # Handle scoring
+                    self.handle_scoring(level_data, new_x, new_y)
 
         # If ninja can no longer climb, reset their climbing state
         if not self.can_climb:

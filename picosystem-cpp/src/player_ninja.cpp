@@ -51,7 +51,7 @@ void PlayerNinja::update(float dt, Constants::LevelData& level_data) {
 		if (pressed(A)) {
 			if (can_jump) {
 				// Player is on platform so is allowed to jump
-				jump(climbing_state == ClimbingState::NONE ? Constants::Player::JUMP_SPEED : Constants::Player::CLIMBING_JUMP_SPEED);
+				jump(Constants::Player::JUMP_SPEED);
 			}
 		}
 	}
