@@ -99,16 +99,16 @@ class Ninja:
     
 
     def check_object_colliding(self, object_x, object_y, object_size):
-        return self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > object_x and self.position_x + Constants.Ninja.BORDER < object_x + object_size and \
-            self.position_y + Constants.SPRITE_SIZE > object_y and self.position_y < object_y + object_size
+        return (self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > object_x and self.position_x + Constants.Ninja.BORDER < object_x + object_size and
+            self.position_y + Constants.SPRITE_SIZE > object_y and self.position_y < object_y + object_size)
     
 
     def check_ninja_colliding(self, ninja):
         ninja_x = ninja.get_x()
         ninja_y = ninja.get_y()
 
-        return self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > ninja_x + Constants.Ninja.BORDER and self.position_x + Constants.Ninja.BORDER < ninja_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER and \
-            self.position_y + Constants.SPRITE_SIZE > ninja_y and self.position_y < ninja_y + Constants.SPRITE_SIZE
+        return (self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > ninja_x + Constants.Ninja.BORDER and self.position_x + Constants.Ninja.BORDER < ninja_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER and
+            self.position_y + Constants.SPRITE_SIZE > ninja_y and self.position_y < ninja_y + Constants.SPRITE_SIZE)
 
     
     def get_x(self):

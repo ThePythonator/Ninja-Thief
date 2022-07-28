@@ -3,6 +3,7 @@
 #include "32blit.hpp"
 
 #include "ninja.hpp"
+#include "constants.hpp"
 
 class PlayerNinja : public Ninja {
 public:

@@ -11,14 +11,12 @@ from time import ticks_ms, ticks_diff
 backlight(100)
 
 # Load the spritesheet
-sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT)
-open("spritesheet.16bpp", "rb").readinto(sprites)
+sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT, "spritesheet.16bpp")
 
 spritesheet(sprites)
 
 # Load the background
-background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT)
-open("background.16bpp", "rb").readinto(background)
+background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, "background.16bpp")
 
 # Load the first level
 level = Level(0)

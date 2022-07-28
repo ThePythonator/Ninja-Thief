@@ -2,6 +2,7 @@
 
 #include "ninja.hpp"
 #include "utilities.hpp"
+#include "constants.hpp"
 
 class EnemyNinja : public Ninja {
 public:
