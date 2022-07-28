@@ -1,6 +1,7 @@
 .vs/
 .vscode/
 out/
+__pycache__/
 
 CMakeSettings.json
 *.blit
