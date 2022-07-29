@@ -100,7 +100,7 @@ class Ninja:
 
     def check_object_colliding(self, object_x, object_y, object_size):
         return (self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > object_x and self.position_x + Constants.Ninja.BORDER < object_x + object_size and
-            self.position_y + Constants.SPRITE_SIZE > object_y and self.position_y < object_y + object_size)
+                self.position_y + Constants.SPRITE_SIZE > object_y and self.position_y < object_y + object_size)
     
 
     def check_ninja_colliding(self, ninja):
@@ -108,7 +108,7 @@ class Ninja:
         ninja_y = ninja.get_y()
 
         return (self.position_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER > ninja_x + Constants.Ninja.BORDER and self.position_x + Constants.Ninja.BORDER < ninja_x + Constants.SPRITE_SIZE - Constants.Ninja.BORDER and
-            self.position_y + Constants.SPRITE_SIZE > ninja_y and self.position_y < ninja_y + Constants.SPRITE_SIZE)
+                self.position_y + Constants.SPRITE_SIZE > ninja_y and self.position_y < ninja_y + Constants.SPRITE_SIZE)
 
     
     def get_x(self):
@@ -138,10 +138,10 @@ class Ninja:
                     new_y = y + y_offset
 
                     # Handle platforms
-                    self.handle_platforms(level_data, new_x, new_y)
+                    self.handle_platform(level_data, new_x, new_y)
 
                     # Handle ladders
-                    self.handle_ladders(level_data, new_x, new_y)
+                    self.handle_ladder(level_data, new_x, new_y)
 
                     # Handle scoring
                     self.handle_scoring(level_data, new_x, new_y)
@@ -155,7 +155,7 @@ class Ninja:
             self.can_jump = True
 
 
-    def handle_platforms(self, level_data, x, y):
+    def handle_platform(self, level_data, x, y):
         # Get tile's sprite index from level data
         tile_id = level_data.platforms[y * Constants.GAME_WIDTH_TILES + x]
 
@@ -236,7 +236,7 @@ class Ninja:
                         # Stop the ninja from climbing
                         self.climbing_state = Ninja.ClimbingState.NONE
 
-                    elif direction ==  2:
+                    elif direction == 2:
                         # Hit the right side of a platform
                         self.position_x += least_intersection
                         self.velocity_x = 0
@@ -247,7 +247,7 @@ class Ninja:
                         self.velocity_y = 0
 
 
-    def handle_ladders(self, level_data, x, y):
+    def handle_ladder(self, level_data, x, y):
         # Get tile's sprite index from level data
         tile_id = level_data.extras[y * Constants.GAME_WIDTH_TILES + x]
 
@@ -273,7 +273,7 @@ class Ninja:
                         self.velocity_y = 0
 
                         # Get climbing speed, depending on whether ninja is the player or an enemy
-                        climbing_speed =  Constants.Player.CLIMBING_SPEED if self.colour == Ninja.Colour.BLUE else Constants.Enemy.CLIMBING_SPEED
+                        climbing_speed = Constants.Player.CLIMBING_SPEED if self.colour == Ninja.Colour.BLUE else Constants.Enemy.CLIMBING_SPEED
 
                         # If player is actually climbing the ladder, set vertical velocity to be in the right direction
                         if self.climbing_state == Ninja.ClimbingState.UP:

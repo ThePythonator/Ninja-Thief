@@ -133,7 +133,6 @@ class Level:
                 tile_id = tile_ids[y * Constants.GAME_WIDTH_TILES + x]
 
                 if tile_id != Constants.Sprites.BLANK_TILE:
-                    # We need to offset the tiles since the 32blit version has borders on the screen
                     sprite(tile_id, x * Constants.SPRITE_SIZE + Constants.GAME_OFFSET_X, y * Constants.SPRITE_SIZE + Constants.GAME_OFFSET_Y)
 
 

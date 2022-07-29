@@ -26,8 +26,8 @@ public:
 
 protected:
 	void handle_collisions(Constants::LevelData& level_data);
-	void handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_t y);
-	void handle_ladders(Constants::LevelData& level_data, uint8_t x, uint8_t y);
+	void handle_platform(Constants::LevelData& level_data, uint8_t x, uint8_t y);
+	void handle_ladder(Constants::LevelData& level_data, uint8_t x, uint8_t y);
 
 	// Only implemented by PlayerNinja
 	virtual void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);

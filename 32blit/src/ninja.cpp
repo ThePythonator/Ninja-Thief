@@ -117,10 +117,10 @@ void Ninja::handle_collisions(Constants::LevelData& level_data) {
 				uint8_t new_y = y + y_offset;
 
 				// Handle platforms
-				handle_platforms(level_data, new_x, new_y);
+				handle_platform(level_data, new_x, new_y);
 
 				// Handle ladders
-				handle_ladders(level_data, new_x, new_y);
+				handle_ladder(level_data, new_x, new_y);
 
 				// Handle scoring
 				handle_scoring(level_data, new_x, new_y);
@@ -140,7 +140,7 @@ void Ninja::handle_collisions(Constants::LevelData& level_data) {
 	}
 }
 
-void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_t y) {
+void Ninja::handle_platform(Constants::LevelData& level_data, uint8_t x, uint8_t y) {
 	// Get tile's sprite index from level data
 	uint8_t tile_id = level_data.platforms[y * Constants::GAME_WIDTH_TILES + x];
 
@@ -247,7 +247,7 @@ void Ninja::handle_platforms(Constants::LevelData& level_data, uint8_t x, uint8_
 	}
 }
 
-void Ninja::handle_ladders(Constants::LevelData& level_data, uint8_t x, uint8_t y) {
+void Ninja::handle_ladder(Constants::LevelData& level_data, uint8_t x, uint8_t y) {
 	// Get tile's sprite index from level data
 	uint8_t tile_id = level_data.extras[y * Constants::GAME_WIDTH_TILES + x];
 

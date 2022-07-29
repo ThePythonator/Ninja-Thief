@@ -1,7 +1,7 @@
+from time import ticks_ms, ticks_diff
+
 from level import Level
 import constants as Constants
-
-from time import ticks_ms, ticks_diff
 
 # Normally, global variables should be avoided where possible, but for simplicity they will sometimes be used in this project
 

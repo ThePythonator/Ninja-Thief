@@ -1,6 +1,6 @@
-import constants as Constants
-
 from random import random
+
+import constants as Constants
 
 def tile_at_position(tile_array, x, y):
 	# Apply positional correction to account for rounding
