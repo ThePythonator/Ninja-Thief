@@ -7,16 +7,18 @@ import constants as Constants
 
 # Setup the game
 
+blend(MASK)
+
 # Set backlight to max
 backlight(100)
 
 # Load the spritesheet
-sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT, "spritesheet.16bpp")
+sprites = Buffer(Constants.SPRITESHEET_WIDTH, Constants.SPRITESHEET_HEIGHT, "assets/spritesheet.16bpp")
 
 spritesheet(sprites)
 
 # Load the background
-background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, "background.16bpp")
+background = Buffer(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, "assets/background.16bpp")
 
 # Load the first level
 level = Level(0)

@@ -68,25 +68,24 @@ void Ninja::render() {
 		index += Constants::Sprites::PLAYER_CLIMBING_IDLE;
 	}
 
-
 	screen.sprite(index, Point(std::round(position_x) + Constants::GAME_OFFSET_X, std::round(position_y) + Constants::GAME_OFFSET_Y), transform);
 }
 
 bool Ninja::check_colliding(float object_x, float object_y, uint8_t object_size) {
-	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > object_x) &&
-		(position_x + Constants::Ninja::BORDER < object_x + object_size) &&
-		(position_y + Constants::SPRITE_SIZE > object_y) &&
-		(position_y < object_y + object_size);
+	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > object_x &&
+			position_x + Constants::Ninja::BORDER < object_x + object_size &&
+			position_y + Constants::SPRITE_SIZE > object_y &&
+			position_y < object_y + object_size);
 }
 
 bool Ninja::check_colliding(Ninja& ninja) {
 	float ninja_x = ninja.get_x();
 	float ninja_y = ninja.get_y();
 
-	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > ninja_x + Constants::Ninja::BORDER) &&
-		(position_x + Constants::Ninja::BORDER < ninja_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER) &&
-		(position_y + Constants::SPRITE_SIZE > ninja_y) &&
-		(position_y < ninja_y + Constants::SPRITE_SIZE);
+	return (position_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER > ninja_x + Constants::Ninja::BORDER &&
+			position_x + Constants::Ninja::BORDER < ninja_x + Constants::SPRITE_SIZE - Constants::Ninja::BORDER &&
+			position_y + Constants::SPRITE_SIZE > ninja_y &&
+			position_y < ninja_y + Constants::SPRITE_SIZE);
 }
 
 float Ninja::get_x() {

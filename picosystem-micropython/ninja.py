@@ -10,12 +10,12 @@ class Ninja:
         DOWN = 3
 
     class HorizontalDirection:
-        LEFT = 0
+        LEFT = -1
         RIGHT = 1
 
     class VerticalDirection:
-        UP = 2
-        DOWN = 3
+        UP = -1
+        DOWN = 1
 
     class Colour:
         BLUE = 0

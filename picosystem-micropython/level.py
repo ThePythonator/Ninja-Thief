@@ -84,9 +84,9 @@ class Level:
 
     def render(self):
         # Render background pipes
-        alpha(0x8)
-        self.render_tiles(self.level_data.pipes)
-        alpha()
+        # alpha(0x8)
+        # self.render_tiles(self.level_data.pipes)
+        # alpha()
 
         # Render platforms
         self.render_tiles(self.level_data.platforms)

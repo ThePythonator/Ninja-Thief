@@ -2,7 +2,7 @@
 
 uint8_t tile_at_position(const uint8_t* tile_array, float x, float y) {
 	// Apply positional correction to account for rounding
-	x -= 0.5f;
+	//x -= 0.5f;
 
 	// Check that the position is within the game bounds (if it isn't, return an empty tile)
 	if (x < 0.0f || x > Constants::GAME_WIDTH ||

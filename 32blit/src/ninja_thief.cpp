@@ -27,6 +27,9 @@ void init() {
 
     // Load the first level
     level = Level(0);
+
+    // Seed the random number generator
+    std::srand(std::time(0));
 }
 
 // Update the game
