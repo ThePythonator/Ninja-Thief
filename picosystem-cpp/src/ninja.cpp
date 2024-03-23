@@ -110,7 +110,7 @@ void Ninja::handle_collisions(Constants::LevelData& level_data) {
 	// Check the four tiles which the ninja might be colliding with (the top left tile is marked by the x and y previously calculated)
 	// Note: it's possible the ninja is near the edge of the screen and you could end up checking tiles which don't exist (off the side of the screen)
 	// Note: to avoid this issue, we use the ternary operator to vary the maximum x and y offsets.
-	if (x < Constants::GAME_WIDTH_TILES && y < Constants::GAME_HEIGHT_TILES && position_x >= -Constants::Ninja::BORDER && position_y >= 0) {
+	if (x < Constants::GAME_WIDTH_TILES && y < Constants::GAME_HEIGHT_TILES && position_x >= -Constants::Ninja::BORDER && position_y >= -Constants::SPRITE_SIZE) {
 		for (uint8_t y_offset = 0; y_offset < (y == Constants::GAME_HEIGHT_TILES - 1 ? 1 : 2); y_offset++) {
 			for (uint8_t x_offset = 0; x_offset < (x == Constants::GAME_WIDTH_TILES - 1 ? 1 : 2); x_offset++) {
 				uint8_t new_x = x + x_offset;

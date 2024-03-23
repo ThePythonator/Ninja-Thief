@@ -25,13 +25,6 @@ public:
 	float get_y();
 
 protected:
-	void handle_collisions(Constants::LevelData& level_data);
-	void handle_platform(Constants::LevelData& level_data, uint8_t x, uint8_t y);
-	void handle_ladder(Constants::LevelData& level_data, uint8_t x, uint8_t y);
-
-	// Only implemented by PlayerNinja
-	virtual void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);
-
 	void jump(float jump_speed);
 
 	Colour colour;
@@ -67,4 +60,12 @@ protected:
 
 	// When a ninja is dead, they no longer collide with any tiles, but still act under gravity
 	bool dead = false;
+
+private:
+	void handle_collisions(Constants::LevelData& level_data);
+	void handle_platform(Constants::LevelData& level_data, uint8_t x, uint8_t y);
+	void handle_ladder(Constants::LevelData& level_data, uint8_t x, uint8_t y);
+
+	// Only implemented by PlayerNinja
+	virtual void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);
 };

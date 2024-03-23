@@ -24,6 +24,8 @@ private:
 	void render_tiles(const uint8_t* tile_ids);
 	void render_border();
 
+	void render_water();
+
 	uint8_t coins_left();
 
 	Constants::LevelData level_data = {};

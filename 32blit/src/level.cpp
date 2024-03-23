@@ -109,6 +109,8 @@ void Level::render() {
 	render_tiles(level_data.pipes);
 	screen.alpha = 0xff;
 
+	// Render water
+	render_water();
 
 	// Render platforms
 	render_tiles(level_data.platforms);
@@ -176,6 +178,12 @@ void Level::render_border() {
 			x -= Constants::SPRITE_SIZE;
 		}
 		screen.sprite(Constants::Sprites::BORDER_RIGHT, Point(x, y));
+	}
+}
+
+void Level::render_water() {
+	for (uint8_t i = 0; i < Constants::GAME_WIDTH_TILES; i++) {
+		screen.sprite(Constants::Sprites::WATER, Point(Constants::GAME_OFFSET_X + i * Constants::SPRITE_SIZE, Constants::GAME_OFFSET_Y + Constants::GAME_HEIGHT - Constants::SPRITE_SIZE));
 	}
 }
 

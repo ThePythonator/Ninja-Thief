@@ -15,7 +15,7 @@ void Ninja::update(float dt, Constants::LevelData& level_data) {
 	can_jump = false;
 
 	// Apply gravity, only if ninja isn't climbing a ladder (or if ninja is dead)
-	if (climbing_state == ClimbingState::NONE || dead) {
+	if (climbing_state == ClimbingState::NONE) {
 		velocity_y += Constants::Environment::GRAVITY_ACCELERATION * dt;
 	}
 

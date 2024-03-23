@@ -1,4 +1,8 @@
 #!/bin/env python3
+
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
 import pytmx
 import sys
 import pathlib

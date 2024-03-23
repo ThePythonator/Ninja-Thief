@@ -19,5 +19,5 @@ uint8_t tile_at_position(const uint8_t* tile_array, float x, float y) {
 }
 
 bool random_bool(float probability) {
-	return (std::rand() % 10001) / 10000.0f < probability;
+	return std::rand() / static_cast<float>(RAND_MAX) < probability;
 }

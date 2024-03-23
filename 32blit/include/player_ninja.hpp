@@ -12,8 +12,6 @@ public:
 
 	void update(float dt, Constants::LevelData& level_data);
 
-	void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);
-
 	uint8_t get_score();
 
 	bool finished_celebrating();
@@ -22,6 +20,8 @@ public:
 	void set_won();
 
 private:
+	void handle_scoring(Constants::LevelData& level_data, uint8_t x, uint8_t y);
+
 	uint8_t score = 0;
 
 	bool won = false;
